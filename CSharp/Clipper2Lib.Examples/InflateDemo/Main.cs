@@ -18,9 +18,10 @@ namespace ClipperDemo1
 
     public static void Main()
     {
-      DoSimpleShapes();
-      DoRabbit();
-      DoVariableOffset();
+      //DoSimpleShapes();
+      DoSimpleTest1();
+      //DoRabbit();
+      //DoVariableOffset();
     }
 
     public static void DoSimpleShapes()
@@ -35,7 +36,7 @@ namespace ClipperDemo1
       {
         //nb: the last parameter here (10) greatly increases miter limit
         pp = Clipper.InflatePaths(pp, 5, JoinType.Miter, EndType.Polygon, 10);
-        solution.AddRange(pp);
+        solution.AddRange(pp);//AddRange：添加实现了ICollection接口的一个集合的所有元素到指定集合的末尾
       }
       SvgUtils.AddSolution(svg, solution, false);
 
@@ -43,8 +44,9 @@ namespace ClipperDemo1
 
       solution.Clear();
       solution.Add(Clipper.MakePath(new double[] { 100, 0, 340, 0, 340, 200, 100, 200 }));
+      
       solution.Add(Clipper.TranslatePath(solution[0], 60, 50));
-      solution.Add(Clipper.TranslatePath(solution[1], 60, 50));
+      solution.Add(Clipper.TranslatePath(solution[1], 100, 50));
       SvgUtils.AddOpenSubject(svg, solution);
 
       // nb: rather than using InflatePaths(), we have to use the 
@@ -53,7 +55,8 @@ namespace ClipperDemo1
       ClipperOffset co = new();
       // because ClipperOffset only accepts Int64 paths, scale them 
       // so the de-scaled offset result will have greater precision
-      double scale = 100;
+      //double scale = 100;
+      double scale = 10;//没影响，因为下面重新scale回来了
       Paths64 pp64 = Clipper.ScalePaths64(solution, scale);
       co.AddPath(pp64[0], JoinType.Bevel, EndType.Joined);
       co.AddPath(pp64[1], JoinType.Square, EndType.Joined);
@@ -64,13 +67,144 @@ namespace ClipperDemo1
 
       const string filename = "../../../inflate.svg";
       SvgUtils.AddSolution(svg, solution, false);
-      SvgUtils.AddCaption(svg, "Beveled join", 100, -17);
-      SvgUtils.AddCaption(svg, "Squared join", 160, 33);
-      SvgUtils.AddCaption(svg, "Rounded join", 220, 83);
+
+      //SvgUtils.AddCaption(svg, "Beveled join test", 100, -17);
+      //SvgUtils.AddCaption(svg, "Squared join", 160, 33);
+      //SvgUtils.AddCaption(svg, "Rounded join", 220, 83);
+
       SvgUtils.SaveToFile(svg, filename, FillRule.EvenOdd, 800, 600, 40);
       ClipperFileIO.OpenFileWithDefaultApp(filename);
     }
 
+    public static void DoSimpleTest()
+    {
+      SvgWriter svg = new();
+
+      //TRIANGLE OFFSET - WITH LARGE MITER
+
+      PathsD pp = new() { Clipper.MakePath(new double[] { 30, 150, 160, 350, 0, 350 }) };
+      PathsD solution = new();
+      PathsD pRect = new() { Clipper.MakePath(new double[] { 20, 260, 40, 260, 40, 300, 20, 300 }) };
+      solution.AddRange(pRect);
+      PathsD pRect1 = new() { Clipper.MakePath(new double[] { 0, 260, 60, 260, 60, 300, 00, 300 }) };
+      solution.AddRange(pRect1);
+      for (int i = 0; i < 5; ++i)
+      {
+        //nb: the last parameter here (10) greatly increases miter limit
+        pp = Clipper.InflatePaths(pp, -5, JoinType.Miter, EndType.Polygon, 10);
+        solution.AddRange(pp);//AddRange：添加实现了ICollection接口的一个集合的所有元素到指定集合的末尾
+      }
+      //SvgUtils.AddSolution(svg, solution, false);
+      SvgUtils.AddSolution(svg, solution, true);
+
+      // RECTANGLE OFFSET - BEVEL, SQUARED AND ROUNDED
+
+      solution.Clear();
+      solution.Add(Clipper.MakePath(new double[] { 100, 0, 340, 0, 340, 200, 100, 200 }));
+      PathsD pTri = new() { Clipper.MakePath(new double[] { 250, 50, 300, 150, 140, 150 }) };
+      solution.Add(pTri[0]);
+
+      //solution.Add(Clipper.TranslatePath(solution[0], 60, 50));
+      //solution.Add(Clipper.TranslatePath(solution[1], 100, 50));
+      //SvgUtils.AddOpenSubject(svg, solution);
+      SvgUtils.AddSolution(svg, solution, true);
+
+      // nb: rather than using InflatePaths(), we have to use the 
+      // ClipperOffest class directly because we want to perform
+      // different join types in a single offset operation
+      ClipperOffset co = new();
+      //co.ReverseSolution = false;
+      // because ClipperOffset only accepts Int64 paths, scale them 
+      // so the de-scaled offset result will have greater precision
+      double scale = 100;
+      Paths64 pp64 = Clipper.ScalePaths64(solution, scale);
+      //co.AddPath(pp64[0], JoinType.Bevel, EndType.Joined);
+      //co.AddPath(pp64[0], JoinType.Miter, EndType.Polygon);
+      //co.AddPath(pp64[1], JoinType.Square, EndType.Joined);
+      //co.AddPath(pp64[2], JoinType.Round, EndType.Joined);
+      for (int i =0;i< pp64.Count; ++i)
+      {
+        //https://angusj.com/clipper2/Docs/Units/Clipper/Types/EndType.htm
+        //co.AddPath(pp64[i], JoinType.Miter, EndType.Polygon);//有bug
+        co.AddPath(pp64[i], JoinType.Square, EndType.Joined);//里面一圈，外面一圈
+      }
+      
+      co.Execute(-10 * scale, pp64);
+      // now de-scale the offset solution
+      solution = Clipper.ScalePathsD(pp64, 1 / scale);
+
+      const string filename = "../../../inflate_test.svg";
+      SvgUtils.AddSolution(svg, solution, false);
+
+      SvgUtils.SaveToFile(svg, filename, FillRule.EvenOdd, 800, 600, 40);
+      ClipperFileIO.OpenFileWithDefaultApp(filename);
+    }
+
+    public static void DoSimpleTest1()
+    {
+      SvgWriter svg = new();
+
+      //TRIANGLE OFFSET - WITH LARGE MITER
+
+      PathsD pp = new() { Clipper.MakePath(new double[] { 100, 350, 200, 550, 10, 550 }) };
+      PathsD solution = new();
+      PathsD pRect = new() { Clipper.MakePath(new double[] { 0, 300, 300, 300, 300, 600, 0, 600 }) };
+      solution.AddRange(pRect);
+      //PathsD pRect1 = new() { Clipper.MakePath(new double[] { 0, 260, 60, 260, 60, 300, 00, 300 }) };
+      //solution.AddRange(pRect1);
+      for (int i = 0; i < 5; ++i)
+      {
+        //nb: the last parameter here (10) greatly increases miter limit
+        pp = Clipper.InflatePaths(pp, -10, JoinType.Miter, EndType.Polygon, 10);
+        solution.AddRange(pp);//AddRange：添加实现了ICollection接口的一个集合的所有元素到指定集合的末尾
+        //pRect = Clipper.InflatePaths(pRect, -10, JoinType.Miter, EndType.Polygon, 10);
+        pRect = Clipper.InflatePaths(pRect, -10, JoinType.Miter, EndType.Joined, 15);
+        solution.AddRange(pRect);
+      }
+      SvgUtils.AddSolution(svg, solution, false);
+      //SvgUtils.AddSolution(svg, solution, true);
+
+      // RECTANGLE OFFSET - BEVEL, SQUARED AND ROUNDED
+
+      solution.Clear();
+      solution.Add(Clipper.MakePath(new double[] { 100, 0, 340, 0, 340, 200, 100, 200 }));
+      solution.Add(Clipper.MakePath(new double[] { 250, 50, 300, 150, 140, 150 }));
+
+      //solution.Add(Clipper.TranslatePath(solution[0], 60, 50));
+      //solution.Add(Clipper.TranslatePath(solution[1], 100, 50));
+      SvgUtils.AddOpenSubject(svg, solution);
+      //SvgUtils.AddSolution(svg, solution, true);
+
+      // nb: rather than using InflatePaths(), we have to use the 
+      // ClipperOffest class directly because we want to perform
+      // different join types in a single offset operation
+      ClipperOffset co = new();
+      //co.ReverseSolution = false;
+      // because ClipperOffset only accepts Int64 paths, scale them 
+      // so the de-scaled offset result will have greater precision
+      double scale = 100;
+      Paths64 pp64 = Clipper.ScalePaths64(solution, scale);
+    //co.AddPath(pp64[0], JoinType.Bevel, EndType.Joined);
+    //co.AddPath(pp64[0], JoinType.Miter, EndType.Polygon);
+    //co.AddPath(pp64[1], JoinType.Square, EndType.Joined);
+    //co.AddPath(pp64[2], JoinType.Round, EndType.Joined);
+
+    //https://angusj.com/clipper2/Docs/Units/Clipper/Types/EndType.htm
+    //http://www.angusj.com/clipper2/Docs/Units/Clipper.Offset/Classes/ClipperOffset/_Body.htm
+         //co.AddPath(pp64[i], JoinType.Miter, EndType.Polygon);//好像有bug
+      co.AddPaths(pp64, JoinType.Square, EndType.Joined);//里面一圈，外面一圈, 有深有浅
+
+      co.Execute(-10 * scale, pp64);
+      co.Execute(-20 * scale, pp64);
+      // now de-scale the offset solution
+      solution = Clipper.ScalePathsD(pp64, 1 / scale);
+
+      const string filename = "../../../inflate_test.svg";
+      SvgUtils.AddSolution(svg, solution, false);
+
+      SvgUtils.SaveToFile(svg, filename, FillRule.EvenOdd, 800, 600, 40);
+      ClipperFileIO.OpenFileWithDefaultApp(filename);
+    }
     public static void DoRabbit()
     {
       PathsD pd = LoadPathsFromResource("InflateDemo.rabbit.bin");
