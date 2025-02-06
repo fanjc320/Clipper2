@@ -19,7 +19,11 @@ namespace ClipperDemo1
     public static void Main()
     {
       //DoSimpleShapes();
-      DoSimpleTest1();
+      //DoSimpleInflatePaths();
+      //DoSimpleInflatePaths1();
+      //DoSimpleInflatePaths2();
+      //DoSimpleClipperOffset();
+      DoSimpleClipperOffset1();
       //DoRabbit();
       //DoVariableOffset();
     }
@@ -140,14 +144,13 @@ namespace ClipperDemo1
       ClipperFileIO.OpenFileWithDefaultApp(filename);
     }
 
-    public static void DoSimpleTest1()
+    public static void DoSimpleInflatePaths()//平行方框和三角
     {
       SvgWriter svg = new();
-
-      //TRIANGLE OFFSET - WITH LARGE MITER
-
-      PathsD pp = new() { Clipper.MakePath(new double[] { 100, 350, 200, 550, 10, 550 }) };
       PathsD solution = new();
+
+      //TRIANGLE OFFSET - WITH LARGE MITER//斜接
+      PathsD pp = new() { Clipper.MakePath(new double[] { 100, 350, 200, 550, 10, 550 }) };
       PathsD pRect = new() { Clipper.MakePath(new double[] { 0, 300, 300, 300, 300, 600, 0, 600 }) };
       solution.AddRange(pRect);
       //PathsD pRect1 = new() { Clipper.MakePath(new double[] { 0, 260, 60, 260, 60, 300, 00, 300 }) };
@@ -164,15 +167,152 @@ namespace ClipperDemo1
       SvgUtils.AddSolution(svg, solution, false);
       //SvgUtils.AddSolution(svg, solution, true);
 
-      // RECTANGLE OFFSET - BEVEL, SQUARED AND ROUNDED
+      const string filename = "../../../inflate_inflatePaths.svg";
+      SvgUtils.AddSolution(svg, solution, false);
 
+      SvgUtils.SaveToFile(svg, filename, FillRule.EvenOdd, 800, 600, 40);
+      ClipperFileIO.OpenFileWithDefaultApp(filename);
+    }
+
+    public static void DoSimpleInflatePaths1()//只显示一个平行方框
+    {
+      SvgWriter svg = new();
+      PathsD solution = new();
+
+      //TRIANGLE OFFSET - WITH LARGE MITER//斜接
+      PathsD pTri = new() { Clipper.MakePath(new double[] { 50, 350, 200, 550, 10, 550 }) };
+      //PathsD pRect = new() { Clipper.MakePath(new double[] { 0, 300, 300, 300, 300, 600, 0, 600 }) };
+      PathsD pRect = new() { Clipper.MakePath(new double[] { 0, 300, 0, 600, 300, 600, 300, 300 }) };//和上面的一样，都是外绿内白
+      solution.AddRange(pRect);
+      //PathsD pRect1 = new() { Clipper.MakePath(new double[] { 0, 260, 60, 260, 60, 300, 00, 300 }) };
+      //solution.AddRange(pRect1);
+      for (int i = 0; i < 1; ++i)
+      {
+        //nb: the last parameter here (10) greatly increases miter limit
+        //pTri = Clipper.InflatePaths(pTri, -20, JoinType.Miter, EndType.Polygon, 10);
+        //solution.AddRange(pTri);//AddRange：添加实现了ICollection接口的一个集合的所有元素到指定集合的末尾
+        pRect = Clipper.InflatePaths(pRect, -10, JoinType.Miter, EndType.Polygon, 10);//单边的，外到内->绿，白
+        //pRect = Clipper.InflatePaths(pRect, 10, JoinType.Square, EndType.Joined, 0);//双边的,外到内->绿白绿
+        solution.AddRange(pRect);
+      }
+      SvgUtils.AddSolution(svg, solution, false);
+      //SvgUtils.AddSolution(svg, solution, true);
+
+      const string filename = "../../../inflate_inflatePaths.svg";
+      SvgUtils.AddSolution(svg, solution, false);
+
+      //SvgUtils.SaveToFile(svg, filename, FillRule.EvenOdd, 1000, 1000, 40);
+      SvgUtils.SaveToFile(svg, filename, FillRule.EvenOdd, 0, 0, 0);
+      ClipperFileIO.OpenFileWithDefaultApp(filename);
+    }
+
+    public static void DoSimpleInflatePaths2()//只显示一个平行方框和三角
+    {
+      SvgWriter svg = new();
+      PathsD solution = new();
+
+      //TRIANGLE OFFSET - WITH LARGE MITER//斜接
+      PathsD pTri = new() { Clipper.MakePath(new double[] { 50, 350, 200, 550, 10, 550 }) };
+      solution.AddRange(pTri);
+      //PathsD pRect = new() { Clipper.MakePath(new double[] { 0, 300, 300, 300, 300, 600, 0, 600 }) };
+      PathsD pRect = new() { Clipper.MakePath(new double[] { 0, 300, 0, 600, 300, 600, 300, 300 }) };//和上面的一样，都是外绿内白
+      solution.AddRange(pRect);
+      //PathsD pRect1 = new() { Clipper.MakePath(new double[] { 0, 260, 60, 260, 60, 300, 00, 300 }) };
+      //solution.AddRange(pRect1);
+      for (int i = 0; i < 1; ++i)
+      {
+        //nb: the last parameter here (10) greatly increases miter limit
+        pTri = Clipper.InflatePaths(pTri, 20, JoinType.Miter, EndType.Polygon, 10);
+        solution.AddRange(pTri);//AddRange：添加实现了ICollection接口的一个集合的所有元素到指定集合的末尾
+        pRect = Clipper.InflatePaths(pRect, -10, JoinType.Miter, EndType.Polygon, 10);//单边的，外到内->绿，白
+        //pRect = Clipper.InflatePaths(pRect, 10, JoinType.Square, EndType.Joined, 0);//双边的,外到内->绿白绿
+        solution.AddRange(pRect);
+      }
+      SvgUtils.AddSolution(svg, solution, false);
+      //SvgUtils.AddSolution(svg, solution, true);
+
+      const string filename = "../../../inflate_inflatePaths.svg";
+      SvgUtils.AddSolution(svg, solution, false);
+
+      //SvgUtils.SaveToFile(svg, filename, FillRule.EvenOdd, 1000, 1000, 40);
+      SvgUtils.SaveToFile(svg, filename, FillRule.EvenOdd, 0, 0, 0);
+      ClipperFileIO.OpenFileWithDefaultApp(filename);
+    }
+
+    public static void DoSimpleClipperOffset()
+    {
+      SvgWriter svg = new();
+      PathsD solution = new();
+      // RECTANGLE OFFSET - BEVEL, SQUARED AND ROUNDED
       solution.Clear();
-      solution.Add(Clipper.MakePath(new double[] { 100, 0, 340, 0, 340, 200, 100, 200 }));
-      solution.Add(Clipper.MakePath(new double[] { 250, 50, 300, 150, 140, 150 }));
+      PathsD pTri = new() { Clipper.MakePath(new double[] { 100, 0, 340, 0, 340, 200, 100, 200 }) };
+      solution.Add(pTri[0]);
+      //pTri = Clipper.InflatePaths(pTri, -50, JoinType.Miter, EndType.Joined, 15);
+      //solution.Add(pTri[0]);
+      //pTri = Clipper.InflatePaths(pTri, -10, JoinType.Miter, EndType.Joined, 5);
+      //solution.Add(pTri[0]);
+      //pTri = Clipper.InflatePaths(pTri, -20, JoinType.Miter, EndType.Joined, 2);
+      //solution.Add(pTri[0]);
+      //pTri = Clipper.InflatePaths(pTri, -40, JoinType.Miter, EndType.Joined, 2);
+      //solution.Add(pTri[0]);
+      //pTri = Clipper.InflatePaths(pTri, -20, JoinType.Miter, EndType.Joined, 2);
+      //solution.Add(pTri[0]);
+      //solution.Add(Clipper.MakePath(new double[] { 100, 0, 340, 0, 340, 200, 100, 200 }));
+      solution.Add(Clipper.MakePath(new double[] { 300, 50, 380, 150, 40, 150 }));
+
+            //solution.Add(Clipper.TranslatePath(solution[0], 60, 50));
+            //solution.Add(Clipper.TranslatePath(solution[1], 100, 50));
+            //SvgUtils.AddOpenSubject(svg, solution);
+            //SvgUtils.AddSolution(svg, solution, true);
+
+            // nb: rather than using InflatePaths(), we have to use the 
+            // ClipperOffest class directly because we want to perform
+            // different join types in a single offset operation
+            ClipperOffset co = new();
+      //co.ReverseSolution = false;
+      // because ClipperOffset only accepts Int64 paths, scale them 
+      // so the de-scaled offset result will have greater precision
+      double scale = 100;
+      Paths64 pp64 = Clipper.ScalePaths64(solution, scale);
+            //co.AddPath(pp64[0], JoinType.Bevel, EndType.Joined);
+            //co.AddPath(pp64[0], JoinType.Miter, EndType.Polygon);
+            //co.AddPath(pp64[1], JoinType.Square, EndType.Joined);
+            //co.AddPath(pp64[2], JoinType.Round, EndType.Joined);
+
+            //https://angusj.com/clipper2/Docs/Units/Clipper/Types/EndType.htm
+            //http://www.angusj.com/clipper2/Docs/Units/Clipper.Offset/Classes/ClipperOffset/_Body.htm
+            //co.AddPaths(pp64, JoinType.Miter, EndType.Polygon);//好像有bug
+            co.AddPaths(pp64, JoinType.Square, EndType.Joined);
+            //co.AddPaths(pp64, JoinType.Square, EndType.Square);//可能不闭合
+
+            //co.Execute(-10 * scale, pp64);
+            co.Execute(-20 * scale, pp64);
+      // now de-scale the offset solution
+      solution = Clipper.ScalePathsD(pp64, 1 / scale);//注释与否，可看到是否裁剪的效果
+
+      const string filename = "../../../inflate_clippper.svg";
+      SvgUtils.AddSolution(svg, solution, false);
+
+      SvgUtils.SaveToFile(svg, filename, FillRule.EvenOdd, 800, 600, 40);
+      ClipperFileIO.OpenFileWithDefaultApp(filename);
+    }
+
+    public static void DoSimpleClipperOffset1()
+    {
+      SvgWriter svg = new();
+      PathsD solution = new();
+      PathsD solution_new = new();
+      // RECTANGLE OFFSET - BEVEL, SQUARED AND ROUNDED
+      solution.Clear();
+      PathD pRect = Clipper.MakePath(new double[] { 100, 0, 340, 0, 340, 200, 100, 200 });
+      solution.Add(pRect);
+      //pTri = Clipper.InflatePaths(pTri, -50, JoinType.Miter, EndType.Joined, 15);
+      //solution.Add(pTri[0]);
+      //solution.Add(Clipper.MakePath(new double[] { 300, 50, 380, 150, 40, 150 }));
 
       //solution.Add(Clipper.TranslatePath(solution[0], 60, 50));
       //solution.Add(Clipper.TranslatePath(solution[1], 100, 50));
-      SvgUtils.AddOpenSubject(svg, solution);
+      //SvgUtils.AddOpenSubject(svg, solution);
       //SvgUtils.AddSolution(svg, solution, true);
 
       // nb: rather than using InflatePaths(), we have to use the 
@@ -183,26 +323,40 @@ namespace ClipperDemo1
       // because ClipperOffset only accepts Int64 paths, scale them 
       // so the de-scaled offset result will have greater precision
       double scale = 100;
-      Paths64 pp64 = Clipper.ScalePaths64(solution, scale);
-    //co.AddPath(pp64[0], JoinType.Bevel, EndType.Joined);
-    //co.AddPath(pp64[0], JoinType.Miter, EndType.Polygon);
-    //co.AddPath(pp64[1], JoinType.Square, EndType.Joined);
-    //co.AddPath(pp64[2], JoinType.Round, EndType.Joined);
+      Paths64 pp64_rect = Clipper.ScalePaths64(solution, scale);
+      //co.AddPath(pp64[0], JoinType.Bevel, EndType.Joined);
+      //co.AddPath(pp64[0], JoinType.Miter, EndType.Polygon);
+      //co.AddPath(pp64[1], JoinType.Square, EndType.Joined);
+      //co.AddPath(pp64[2], JoinType.Round, EndType.Joined);
 
-    //https://angusj.com/clipper2/Docs/Units/Clipper/Types/EndType.htm
-    //http://www.angusj.com/clipper2/Docs/Units/Clipper.Offset/Classes/ClipperOffset/_Body.htm
-         //co.AddPath(pp64[i], JoinType.Miter, EndType.Polygon);//好像有bug
-      co.AddPaths(pp64, JoinType.Square, EndType.Joined);//里面一圈，外面一圈, 有深有浅
+      //https://angusj.com/clipper2/Docs/Units/Clipper/Types/EndType.htm
+      //http://www.angusj.com/clipper2/Docs/Units/Clipper.Offset/Classes/ClipperOffset/_Body.htm
+      //co.AddPaths(pp64, JoinType.Miter, EndType.Polygon);//好像有bug
+      co.AddPaths(pp64_rect, JoinType.Square, EndType.Joined);
+      //co.AddPaths(pp64, JoinType.Square, EndType.Square);//可能不闭合
 
-      co.Execute(-10 * scale, pp64);
-      co.Execute(-20 * scale, pp64);
+      solution.Clear();
+      solution.Add(Clipper.MakePath(new double[] { 300, 50, 380, 150, 40, 150 }));
+      Paths64 pp64_tri = Clipper.ScalePaths64(solution, scale);
+      //co.AddPaths(pp64_tri, JoinType.Square, EndType.Joined);
+
+      //solution_new = Clipper.ScalePathsD(Clipper.Intersect(pp64_rect, pp64_tri, FillRule.EvenOdd), 1/scale);
+      //solution_new = Clipper.ScalePathsD(Clipper.Intersect(pp64_tri, pp64_rect, FillRule.EvenOdd), 1/scale);//和上面一样
+      //solution_new = Clipper.ScalePathsD(Clipper.Union(pp64_rect, pp64_tri, FillRule.EvenOdd), 1/scale);
+      solution_new = Clipper.ScalePathsD(Clipper.Difference(pp64_rect, pp64_tri, FillRule.EvenOdd), 1 / scale);
+
+      //co.Execute(-20 * scale, pp64_rect);
       // now de-scale the offset solution
-      solution = Clipper.ScalePathsD(pp64, 1 / scale);
+      //solution = Clipper.ScalePathsD(pp64_rect, 1 / scale);//注释与否，可看到是否裁剪的效果
 
-      const string filename = "../../../inflate_test.svg";
-      SvgUtils.AddSolution(svg, solution, false);
+      const string filename = "../../../inflate_clippper.svg";
+      //SvgUtils.AddSolution(svg, solution, false);
+      SvgUtils.AddSolution(svg, solution_new, false);
 
-      SvgUtils.SaveToFile(svg, filename, FillRule.EvenOdd, 800, 600, 40);
+      //SvgUtils.SaveToFile(svg, filename, FillRule.EvenOdd, 800, 600, 40);
+      //SvgUtils.SaveToFile(svg, filename, FillRule.Positive, 0, 0, 0);
+      //SvgUtils.SaveToFile(svg, filename, FillRule.Negative, 0, 0, 0);
+      SvgUtils.SaveToFile(svg, filename, FillRule.NonZero, 0, 0, 0);
       ClipperFileIO.OpenFileWithDefaultApp(filename);
     }
     public static void DoRabbit()
