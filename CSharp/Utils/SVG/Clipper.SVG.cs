@@ -253,7 +253,7 @@ namespace Clipper2Lib
 
       foreach (PolyInfo pi in PolyInfoList)
       {
-        writer.Write(" <path d=\"");
+        writer.Write(" <path id = \"test\" d=\"");
         foreach (PathD path in pi.paths)
         {
           if (path.Count < 2) continue;
@@ -278,6 +278,16 @@ namespace Clipper2Lib
         else
           writer.Write(string.Format(NumberFormatInfo.InvariantInfo, svg_path_format2,
               ColorToHtml(pi.PenClr), GetAlpha(pi.PenClr), pi.PenWidth));
+
+        if (true)
+        {
+          string show_path_format = "\"\n <circle r=\"10\" fill=\"skyblue\">" +
+            "<animateMotion dur=\"{0}s\" repeatCount=\"indefinite\">" +
+      "<mpath href=\"#test\"></mpath>" +
+    "</animateMotion>" +
+  "</circle> \"  \n\n ";
+    writer.Write(string.Format(NumberFormatInfo.InvariantInfo, show_path_format,  10));
+        }
 
         if (!pi.ShowCoords) continue;
         {
