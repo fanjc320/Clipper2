@@ -483,7 +483,7 @@ namespace Clipper2Lib
     *******************************************************************************/
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static double GetDx(Point64 pt1, Point64 pt2)
+    private static double GetDx(Point64 pt1, Point64 pt2)//斜率的倒数
     {
       double dy = pt2.Y - pt1.Y;
       if (dy != 0)
@@ -1829,18 +1829,21 @@ namespace Clipper2Lib
       }
     }
 
-    protected void ExecuteInternal(ClipType ct, FillRule fillRule)
+    protected void ExecuteInternal(ClipType ct, FillRule fillRule)//!!!!
     {
-      if (ct == ClipType.NoClip) return;
+      if (ct == ClipType.NoClip) 
+        return;
       _fillrule = fillRule;
       _cliptype = ct;
       Reset();
-      if (!PopScanline(out long y)) return;
+      if (!PopScanline(out long y)) 
+        return;
       while (_succeeded)
       {
         InsertLocalMinimaIntoAEL(y);
         Active? ae;
-        while (PopHorz(out ae)) DoHorizontal(ae!);
+        while (PopHorz(out ae)) 
+          DoHorizontal(ae!);//在C# 8.0及以上版本，当引用类型声明可能为空时，通过在类型后添加问号“?”表示可为空。感叹号确保在该处引用不为空。
         if (_horzSegList.Count > 0)
         {
           ConvertHorzSegsToJoins();
@@ -1851,9 +1854,12 @@ namespace Clipper2Lib
           break; // y new top of scanbeam
         DoIntersections(y);
         DoTopOfScanbeam(y);
-        while (PopHorz(out ae)) DoHorizontal(ae!);
+        while (PopHorz(out ae))
+          DoHorizontal(ae!);
       }
-      if (_succeeded) ProcessHorzJoins(); 
+
+      if (_succeeded)
+        ProcessHorzJoins();
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]

@@ -84,7 +84,7 @@ namespace Clipper2Lib
     const double arc_const = 0.002; // <-- 1/500
 
     private readonly List<Group> _groupList = new List<Group>();
-    private Path64 pathOut = new Path64();
+    private Path64 pathOut = new Path64();//新产生的path，clip等操作产生的
     private readonly PathD _normals = new PathD();
     private Paths64 _solution = new Paths64();
     private PolyTree64? _solutionTree;
@@ -561,8 +561,8 @@ namespace Clipper2Lib
         // by far the simplest way to construct concave joins, especially those joining very 
         // short segments, is to insert 3 points that produce negative regions. These regions 
         // will be removed later by the finishing union operation. This is also the best way 
-        // to ensure that path reversals (ie over-shrunk paths) are removed.
-        pathOut.Add(GetPerpendic(path[j], _normals[k]));
+        // to ensure that path reversals (ie over-shrunk paths) are removed.//shrink 缩小
+        pathOut.Add(GetPerpendic(path[j], _normals[k]));//获取垂线;
         pathOut.Add(path[j]); // (#405, #873, #916)
         pathOut.Add(GetPerpendic(path[j], _normals[j]));
       }
@@ -597,10 +597,10 @@ namespace Clipper2Lib
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private void OffsetPolygon(Group group, Path64 path)
     {
-      pathOut = new Path64();
+      pathOut = new Path64();//为何要重新new一遍?
       int cnt = path.Count, prev = cnt - 1;
       for (int i = 0; i < cnt; i++)
-        OffsetPoint(group, path, i, ref prev);
+        OffsetPoint(group, path, i, ref prev);//pathOut会被赋值
       _solution.Add(pathOut);
     }
 
