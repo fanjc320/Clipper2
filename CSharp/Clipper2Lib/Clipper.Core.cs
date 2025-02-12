@@ -688,6 +688,7 @@ namespace Clipper2Lib
       // ensure NOT collinear
       return (res1 != 0 || res2 != 0 || res3 != 0 || res4 != 0);
     }
+    //fjc:calculate the closest point on a line segment (defined by two points, ae1.bot and ae1.top) to a given point (ip).
     public static Point64 GetClosestPtOnSegment(Point64 offPt,
     Point64 seg1, Point64 seg2)
     {

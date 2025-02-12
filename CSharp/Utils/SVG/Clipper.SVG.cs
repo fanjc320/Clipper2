@@ -202,10 +202,10 @@ namespace Clipper2Lib
         foreach (PathD path in pi.paths)
           foreach (PointD pt in path)
           {
-            if (pt.x < bounds.left) bounds.left = pt.x;
-            if (pt.x > bounds.right) bounds.right = pt.x;
-            if (pt.y < bounds.top) bounds.top = pt.y;
-            if (pt.y > bounds.bottom) bounds.bottom = pt.y;
+            if (pt.x < bounds.left) bounds.left = Math.Min(pt.x, 0.0);
+            if (pt.x > bounds.right) bounds.right = Math.Max(pt.x, 400.0);
+            if (pt.y < bounds.top) bounds.top = Math.Min(pt.y, 0.0);
+            if (pt.y > bounds.bottom) bounds.bottom = Math.Max(pt.y, 400.0);
           }
       return !IsValidRect(bounds) ? RectEmpty : bounds;
     }
@@ -224,7 +224,8 @@ namespace Clipper2Lib
     {
       if (margin < 0) margin = 20;
       RectD bounds = GetBounds();
-      if (bounds.IsEmpty()) return false;
+      if (bounds.IsEmpty()) 
+        return false;
 
       double scale = 1.0;
       if (maxWidth > 0 && maxHeight > 0)
@@ -251,6 +252,12 @@ namespace Clipper2Lib
       else
         writer.Write(svg_header, maxWidth, maxHeight);
 
+      if (true)
+      {
+        string show_coordinate = "<!-- Background -->\r\n  <rect width=\"100%\" height=\"100%\" fill=\"#f0f0f0\" />\r\n\r\n  <!-- Grid Lines (every 50 units) -->\r\n  <!-- Vertical Grid Lines -->\r\n  <path d=\"M50,0 V400 M100,0 V400 M150,0 V400 M200,0 V400 M250,0 V400 M300,0 V400 M350,0 V400\" \r\n        stroke=\"#ccc\" stroke-width=\"1\" fill=\"none\" />\r\n  <!-- Horizontal Grid Lines -->\r\n  <path d=\"M0,50 H400 M0,100 H400 M0,150 H400 M0,200 H400 M0,250 H400 M0,300 H400 M0,350 H400\" \r\n        stroke=\"#ccc\" stroke-width=\"1\" fill=\"none\" />\r\n\r\n  <!-- Axes -->\r\n  <line x1=\"0\" y1=\"0\" x2=\"400\" y2=\"0\" stroke=\"black\" stroke-width=\"2\" /> <!-- X-axis -->\r\n  <line x1=\"0\" y1=\"0\" x2=\"0\" y2=\"400\" stroke=\"black\" stroke-width=\"2\" /> <!-- Y-axis -->\r\n\r\n  <!-- X-axis Tick Marks and Labels (every 50 units) -->\r\n  <g id=\"x-axis-ticks\">\r\n    <line x1=\"50\" y1=\"0\" x2=\"50\" y2=\"10\" stroke=\"black\" /> <!-- Tick at x=50 -->\r\n    <text x=\"50\" y=\"25\" font-size=\"12\" text-anchor=\"middle\">50</text>\r\n    \r\n    <line x1=\"100\" y1=\"0\" x2=\"100\" y2=\"10\" stroke=\"black\" /> <!-- Tick at x=100 -->\r\n    <text x=\"100\" y=\"25\" font-size=\"12\" text-anchor=\"middle\">100</text>\r\n    \r\n    <line x1=\"150\" y1=\"0\" x2=\"150\" y2=\"10\" stroke=\"black\" /> <!-- Tick at x=150 -->\r\n    <text x=\"150\" y=\"25\" font-size=\"12\" text-anchor=\"middle\">150</text>\r\n    \r\n    <!-- Repeat for remaining ticks... -->\r\n    <line x1=\"200\" y1=\"0\" x2=\"200\" y2=\"10\" stroke=\"black\" />\r\n    <text x=\"200\" y=\"25\" font-size=\"12\" text-anchor=\"middle\">200</text>\r\n    \r\n    <line x1=\"250\" y1=\"0\" x2=\"250\" y2=\"10\" stroke=\"black\" />\r\n    <text x=\"250\" y=\"25\" font-size=\"12\" text-anchor=\"middle\">250</text>\r\n    \r\n    <line x1=\"300\" y1=\"0\" x2=\"300\" y2=\"10\" stroke=\"black\" />\r\n    <text x=\"300\" y=\"25\" font-size=\"12\" text-anchor=\"middle\">300</text>\r\n    \r\n    <line x1=\"350\" y1=\"0\" x2=\"350\" y2=\"10\" stroke=\"black\" />\r\n    <text x=\"350\" y=\"25\" font-size=\"12\" text-anchor=\"middle\">350</text>\r\n  </g>\r\n\r\n  <!-- Y-axis Tick Marks and Labels (every 50 units) -->\r\n  <g id=\"y-axis-ticks\">\r\n    <line x1=\"0\" y1=\"50\" x2=\"10\" y2=\"50\" stroke=\"black\" /> <!-- Tick at y=50 -->\r\n    <text x=\"25\" y=\"55\" font-size=\"12\" text-anchor=\"start\">50</text>\r\n    \r\n    <line x1=\"0\" y1=\"100\" x2=\"10\" y2=\"100\" stroke=\"black\" /> <!-- Tick at y=100 -->\r\n    <text x=\"25\" y=\"105\" font-size=\"12\" text-anchor=\"start\">100</text>\r\n    \r\n    <line x1=\"0\" y1=\"150\" x2=\"10\" y2=\"150\" stroke=\"black\" /> <!-- Tick at y=150 -->\r\n    <text x=\"25\" y=\"155\" font-size=\"12\" text-anchor=\"start\">150</text>\r\n    \r\n    <!-- Repeat for remaining ticks... -->\r\n    <line x1=\"0\" y1=\"200\" x2=\"10\" y2=\"200\" stroke=\"black\" />\r\n    <text x=\"25\" y=\"205\" font-size=\"12\" text-anchor=\"start\">200</text>\r\n    \r\n    <line x1=\"0\" y1=\"250\" x2=\"10\" y2=\"250\" stroke=\"black\" />\r\n    <text x=\"25\" y=\"255\" font-size=\"12\" text-anchor=\"start\">250</text>\r\n    \r\n    <line x1=\"0\" y1=\"300\" x2=\"10\" y2=\"300\" stroke=\"black\" />\r\n    <text x=\"25\" y=\"305\" font-size=\"12\" text-anchor=\"start\">300</text>\r\n    \r\n    <line x1=\"0\" y1=\"350\" x2=\"10\" y2=\"350\" stroke=\"black\" />\r\n    <text x=\"25\" y=\"355\" font-size=\"12\" text-anchor=\"start\">350</text>\r\n  </g>\r\n\r\n  <!-- Axis Labels -->\r\n  <text x=\"380\" y=\"20\" font-size=\"14\" fill=\"black\">X</text> <!-- X-axis label -->\r\n  <text x=\"20\" y=\"380\" font-size=\"14\" fill=\"black\">Y</text> <!-- Y-axis label -->\r\n\r\n  <!-- Example Point at (100, 100) -->\r\n  <circle cx=\"100\" cy=\"100\" r=\"3\" fill=\"red\" />\r\n  <text x=\"105\" y=\"105\" font-size=\"10\" fill=\"red\">(100, 100)</text>";
+        writer.Write(string.Format(NumberFormatInfo.InvariantInfo, show_coordinate));
+      }
+
       foreach (PolyInfo pi in PolyInfoList)
       {
         writer.Write(" <path id = \"test\" d=\"");
@@ -268,6 +275,15 @@ namespace Clipper2Lib
             (path[j].y * scale + offsetY)));
           }
           if (!pi.IsOpen) writer.Write(" z");
+        }
+
+        foreach (PathD path in pi.paths)
+        {
+          Console.WriteLine("----------- new path -----------------");
+          for (int j = 0; j < path.Count; j++)
+          {
+            Console.WriteLine("svg path point:" + path[j].ToString());
+          }
         }
 
         if (!pi.IsOpen)

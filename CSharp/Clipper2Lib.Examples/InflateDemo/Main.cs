@@ -6,6 +6,7 @@
 * License   :  https://www.boost.org/LICENSE_1_0.txt                           *
 *******************************************************************************/
 
+using System;
 using System.IO;
 using System.Reflection;
 using Clipper2Lib;
@@ -24,7 +25,8 @@ namespace ClipperDemo1
       //DoSimpleInflatePaths2();
       //DoSimpleClipperOffset();
       //DoSimpleClipperOffset1();
-      DoSimpleClipperOffset2();
+      //DoSimpleClipperOffset2();
+      DoSimpleClipperOffset3();
       //DoRabbit();
       //DoVariableOffset();
     }
@@ -71,7 +73,7 @@ namespace ClipperDemo1
       solution = Clipper.ScalePathsD(pp64, 1 / scale);
 
       const string filename = "../../../inflate.svg";
-      SvgUtils.AddSolution(svg, solution, false);
+      SvgUtils.AddSolution(svg, solution, true);
 
       //SvgUtils.AddCaption(svg, "Beveled join test", 100, -17);
       //SvgUtils.AddCaption(svg, "Squared join", 160, 33);
@@ -367,7 +369,7 @@ namespace ClipperDemo1
       // RECTANGLE OFFSET - BEVEL, SQUARED AND ROUNDED
       solution.Clear();
       PathsD pRect = new() { Clipper.MakePath(new double[] { 100, 0, 340, 0, 340, 200, 100, 200 }) };
-      SvgUtils.AddSubject(svg, pRect);
+      //SvgUtils.AddSubject(svg, pRect);
       solution.AddRange(pRect);
 
       for (int i = 0; i < 5; ++i)
@@ -389,11 +391,11 @@ namespace ClipperDemo1
       Paths64 pp64_tri = Clipper.ScalePaths64(solution, scale);
       //co.AddPaths(pp64_tri, JoinType.Square, EndType.Joined);
 
-      //solution_new = Clipper.ScalePathsD(Clipper.Intersect(pp64_rect, pp64_tri, FillRule.EvenOdd), 1/scale);
-      //solution_new = Clipper.ScalePathsD(Clipper.Intersect(pp64_tri, pp64_rect, FillRule.EvenOdd), 1/scale);//和上面一样
-      //solution_new = Clipper.ScalePathsD(Clipper.Union(pp64_rect, pp64_tri, FillRule.EvenOdd), 1/scale);
-      //solution_new = Clipper.ScalePathsD(Clipper.Difference(pp64_rect, pp64_tri, FillRule.EvenOdd), 1 / scale);//绿白相间
-      solution_new = Clipper.ScalePathsD(Clipper.Difference(pp64_rect, pp64_tri, FillRule.EvenOdd), 1 / scale);//
+      //solution_new = Clipper.ScalePathsD(Clipper.Difference(pp64_rect, pp64_tri, FillRule.NonZero), 1 / scale);
+      //solution_new = Clipper.ScalePathsD(Clipper.Difference(pp64_rect, pp64_tri, FillRule.Negative), 1 / scale);
+      //solution_new = Clipper.ScalePathsD(Clipper.Difference(pp64_rect, pp64_tri, FillRule.Positive), 1 / scale);//只有外面的，没有绿白相间
+      //solution_new = Clipper.ScalePathsD(Clipper.Union(pp64_tri, pp64_rect, FillRule.EvenOdd), 1 / scale);
+      solution_new = Clipper.ScalePathsD(Clipper.Difference(pp64_rect, pp64_tri, FillRule.EvenOdd), 1 / scale);//绿白相间
       //solution_new.AddRange(pTri);
 
       //co.Execute(-20 * scale, pp64_rect);
@@ -410,6 +412,57 @@ namespace ClipperDemo1
       SvgUtils.SaveToFile(svg, filename, FillRule.Positive, 0, 0, 0);
       ClipperFileIO.OpenFileWithDefaultApp(filename);
     }
+
+    public static void DoSimpleClipperOffset3()
+    {
+      SvgWriter svg = new();
+      PathsD solution = new();
+      PathsD solution_tri = new();
+      PathsD solution_line = new();
+      // RECTANGLE OFFSET - BEVEL, SQUARED AND ROUNDED
+      solution.Clear();
+      PathsD pRect = new() { Clipper.MakePath(new double[] { 100, 0, 340, 0, 340, 200, 100, 200 }) };
+      PathsD pRectLine = new() { Clipper.MakePath(new double[] { 100, 0, 340, 0, 340, 200, 100, 200,  100,0 }) };
+      pRectLine = Clipper.InflatePaths(pRectLine, -5, JoinType.Miter, EndType.Polygon, 10);
+      //SvgUtils.AddSubject(svg, pRect);
+      //SvgUtils.AddSubject(svg, pRectLine);
+      solution.AddRange(pRect);
+      solution_line.AddRange(pRectLine);
+
+      for (int i = 0; i < 0; ++i)
+      {
+        pRect = Clipper.InflatePaths(pRect, -10, JoinType.Miter, EndType.Polygon, 10);//单边的，外到内->绿，白
+        pRectLine = Clipper.InflatePaths(pRectLine, -10, JoinType.Miter, EndType.Polygon, 10);
+        solution.AddRange(pRect);
+        solution_line.AddRange(pRectLine);
+      }
+
+      double scale = 100;
+      Paths64 pp64_rect = Clipper.ScalePaths64(solution, scale);
+      Paths64 pp64_rect_line = Clipper.ScalePaths64(solution_line, scale);
+
+      solution_tri.Clear();
+      PathsD pTri = new() { Clipper.MakePath(new double[] { 300, 50, 380, 150, 40, 150 }) };
+      solution_tri.AddRange(pTri);
+      Paths64 pp64_tri = Clipper.ScalePaths64(solution_tri, scale);
+
+
+      solution = Clipper.ScalePathsD(Clipper.Difference(pp64_rect, pp64_tri, FillRule.EvenOdd), 1 / scale);//绿白相间
+      //Paths64 pp64_diff = Clipper.ScalePaths64(solution, scale);
+      //solution_line = Clipper.ScalePathsD(Clipper.Difference(pp64_rect, pp64_rect_line, FillRule.EvenOdd), 1 / scale);//绿白相间
+      ////solution_line = Clipper.ScalePathsD(Clipper.Difference(pp64_diff, pp64_rect_line, FillRule.Positive), 1 / scale);//绿白相间
+      const string filename = "../../../inflate_clippper.svg";
+      SvgUtils.AddSolution(svg, solution, false);
+      //SvgUtils.AddSubject(svg, solution_new);//灰色
+      //SvgUtils.AddOpenSubject(svg, solution_line);
+      //SvgUtils.AddOpenSolution(svg, solution_line, false);
+      //SvgUtils.AddSolution(svg, solution_line, false);
+      //SvgUtils.AddSubject(svg, solution_line);
+      //SvgUtils.AddClip(svg, pTri);//红色三角,和上面只是三角的颜色不同
+      SvgUtils.SaveToFile(svg, filename, FillRule.Positive, 0, 0, 0);
+      ClipperFileIO.OpenFileWithDefaultApp(filename);
+    }
+
     public static void DoRabbit()
     {
       PathsD pd = LoadPathsFromResource("InflateDemo.rabbit.bin");

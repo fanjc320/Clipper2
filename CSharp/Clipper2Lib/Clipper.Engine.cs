@@ -13,6 +13,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Runtime.CompilerServices;
 
 namespace Clipper2Lib
@@ -131,6 +132,23 @@ namespace Clipper2Lib
       prev = this;
       horz = null;
     }
+
+    public string ToString()
+    {
+      int cnt = 1;
+      OutPt op = this;
+      string result = $"OutPt pt:"+op.pt;
+      OutPt cur = this.next!;
+      while (cur != op)
+      {
+        result += " numb:" + cnt + " pt:" + cur.pt.ToString();
+        cnt ++;
+        cur = cur.next!;
+        Console.WriteLine(result);
+      }
+      
+      return result + '\n';
+    }
   }
 
   internal enum JoinWith { None, Left, Right }
@@ -210,6 +228,14 @@ namespace Clipper2Lib
     public LocalMinima localMin; // the bottom of an edge 'bound' (also Vatti)
     internal bool isLeftBound;
     internal JoinWith joinWith;
+
+    public string ToString()
+    {
+      string result = $"Active bot:" + bot.ToString();
+      result += "top:" + top.ToString() + " curX:" + curX;
+
+      return result + '\n';
+    }
   }
 
   internal static class ClipperEngine
@@ -1290,10 +1316,10 @@ namespace Clipper2Lib
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private OutPt AddLocalMinPoly(Active ae1, Active ae2, Point64 pt, bool isNew = false)
     {
-      OutRec outrec = NewOutRec();
+      OutRec outrec = NewOutRec();////这里_outRectList被赋值了
       ae1.outrec = outrec;
       ae2.outrec = outrec;
-
+      Console.WriteLine("AddLocalMinPoly ae1:" + ae1.ToString() + " ae2:" + ae2.ToString() + " pt:" + pt.ToString());
       if (IsOpen(ae1))
       {
         outrec.owner = null;
@@ -1331,8 +1357,8 @@ namespace Clipper2Lib
         }
       }
 
-      OutPt op = new OutPt(pt, outrec);
-      outrec.pts = op;
+      OutPt op = new OutPt(pt, outrec);//!!!!!
+      outrec.pts = op;//!!!!!
       return op;
     }
 
@@ -1474,6 +1500,16 @@ namespace Clipper2Lib
         idx = _outrecList.Count
       };
       _outrecList.Add(result);
+      //result还没有pts
+      //Console.WriteLine("_outrecList.count:" + _outrecList.Count + " result.pts:" + result.pts.ToString());
+      //if (_outrecList[0].pts != null)
+      //{
+      //  Console.WriteLine("NewOutRec _outrecList[0].pts:" + _outrecList[0].pts.ToString());
+      //}
+      //else
+      //{
+      //  Console.WriteLine("NewOutRec _outrecList[0].pts is null");
+      //}
       return result;
     }
 
@@ -1858,14 +1894,15 @@ namespace Clipper2Lib
           DoHorizontal(ae!);
       }
 
-      if (_succeeded)
-        ProcessHorzJoins();
+      //if (_succeeded)
+      //  ProcessHorzJoins();
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private void DoIntersections(long topY)
     {
-      if (!BuildIntersectList(topY)) return;
+      if (!BuildIntersectList(topY)) 
+        return;
       ProcessIntersectList();
       DisposeIntersectNodes();
     }
@@ -2025,12 +2062,16 @@ namespace Clipper2Lib
 
         IntersectNode node = _intersectList[i];
         IntersectEdges(node.edge1, node.edge2, node.pt);
+        //node.pt是node.edge1与node.edge2的交点
+        Console.WriteLine("ProcessIntersectList edge1.bot:"+ node.edge1.bot + " top:" + node.edge1.top + 
+          " edge2.bot:" + node.edge2.bot + " top:" + node.edge2.top
+          +" pt:" + node.pt);
         SwapPositionsInAEL(node.edge1, node.edge2);
 
-        node.edge1.curX = node.pt.X;
+        node.edge1.curX = node.pt.X;//更新当前活动边与scanline的交点的x值
         node.edge2.curX = node.pt.X;
-        CheckJoinLeft(node.edge2, node.pt, true);
-        CheckJoinRight(node.edge1, node.pt, true);
+        //CheckJoinLeft(node.edge2, node.pt, true);//注释掉有时候没影响
+        //CheckJoinRight(node.edge1, node.pt, true);
       }
     }
 
@@ -2941,11 +2982,11 @@ private void DoHorizontal(Active horz)
       }
     }
 
-    internal static bool BuildPath(OutPt? op, bool reverse, bool isOpen, Path64 path)
+    internal static bool BuildPath(OutPt? op, bool reverse, bool isOpen, Path64 path)//!!!!!!
     {
       if (op == null || op.next == op || (!isOpen && op.next == op.prev)) return false;
       path.Clear();
-
+      Console.WriteLine(">>>>>>>>>>>>> op.pt:" + op.pt);
       Point64 lastPt;
       OutPt op2;
       if (reverse)
@@ -2955,25 +2996,29 @@ private void DoHorizontal(Active horz)
       }
       else
       {
-        op = op.next!;
+        op = op.next!;//此时op.pt已经变了
+        //Console.WriteLine(">>>>>>>>>--------->>>>>>>>>> op.pt:" + op.pt);//op.pt改变
         lastPt = op.pt;
         op2 = op.next!;
       }
       path.Add(lastPt);
-        
+      //Console.WriteLine("--------------reverse:" + reverse);
+      Console.WriteLine("path.Add lastPt:" + lastPt);
+
       while (op2 != op)
       {
         if (op2.pt != lastPt)
         {
           lastPt = op2.pt;
           path.Add(lastPt);
+          Console.WriteLine("while path.Add lastPt:" + lastPt);
         }
         if (reverse)
           op2 = op2.prev;
         else
           op2 = op2.next!;
       }
-
+      Console.WriteLine("<<<<<<<<<<<<<<<< op.pt:" + op.pt);//不再改变
       return path.Count != 3 || isOpen || !IsVerySmallTriangle(op2);
     }
 
@@ -2983,7 +3028,13 @@ private void DoHorizontal(Active horz)
       solutionOpen.Clear();
       solutionClosed.EnsureCapacity(_outrecList.Count);
       solutionOpen.EnsureCapacity(_outrecList.Count);
-      
+      //if(_outrecList.Count>0)
+      //{
+      //  Console.WriteLine("_outrecList[0].pts:" + _outrecList[0].pts.ToString());
+      //}else
+      //{
+      //  Console.WriteLine("_outrecList.Count:" + _outrecList.Count);
+      //}
       int i = 0;
       // _outrecList.Count is not static here because
       // CleanCollinear can indirectly add additional OutRec
@@ -2996,15 +3047,17 @@ private void DoHorizontal(Active horz)
         if (outrec.isOpen)
         {
           if (BuildPath(outrec.pts, ReverseSolution, true, path))
-              solutionOpen.Add(path);
+            solutionOpen.Add(path);
         }
         else
         {
           CleanCollinear(outrec);
           // closed paths should always return a Positive orientation
           // except when ReverseSolution == true
+          Console.WriteLine("BuildPaths before outrec.pts:" + outrec.pts.ToString());
           if (BuildPath(outrec.pts, ReverseSolution, false, path))
-            solutionClosed.Add(path);
+            Console.WriteLine("BuildPaths after outrec.pts:" + outrec.pts.ToString());//outrec.pts并未改变
+          solutionClosed.Add(path);
         }
       }
       return true;
