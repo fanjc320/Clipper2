@@ -1316,7 +1316,7 @@ namespace Clipper2Lib
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private OutPt AddLocalMinPoly(Active ae1, Active ae2, Point64 pt, bool isNew = false)
     {
-      OutRec outrec = NewOutRec();////这里_outRectList被赋值了
+      OutRec outrec = NewOutRec();////这里_outRecList被赋值了
       ae1.outrec = outrec;
       ae2.outrec = outrec;
       Console.WriteLine("AddLocalMinPoly ae1:" + ae1.ToString() + " ae2:" + ae2.ToString() + " pt:" + pt.ToString());
@@ -1488,7 +1488,7 @@ namespace Clipper2Lib
       newOp.prev = opFront;
       newOp.next = opBack;
       opFront.next = newOp;
-      if (toFront) outrec.pts = newOp;
+      if (toFront) outrec.pts = newOp;////!!!!! _outrecList
       return newOp;
     }
 
@@ -1551,7 +1551,7 @@ namespace Clipper2Lib
         if (!IsOpen(ae)) TrimHorz(ae, PreserveCollinear);
         return; 
       }
-      InsertScanline(ae.top.Y);
+      InsertScanline(ae.top.Y);//////
 
       CheckJoinLeft(ae, ae.bot);
       CheckJoinRight(ae, ae.bot, true); // (#500)
@@ -1890,8 +1890,8 @@ namespace Clipper2Lib
           break; // y new top of scanbeam
         DoIntersections(y);
         DoTopOfScanbeam(y);
-        while (PopHorz(out ae))
-          DoHorizontal(ae!);
+        //while (PopHorz(out ae))
+        //  DoHorizontal(ae!);
       }
 
       //if (_succeeded)
@@ -2936,6 +2936,7 @@ private void DoHorizontal(Active horz)
       if (!(absArea2 > 1) ||
           (!(absArea2 > absArea1) &&
            ((area2 > 0) != (area1 > 0)))) return;
+      Console.WriteLine("DoSplitOp>>>>>>>>>>>>>>>>>>>>>>>>>>NewOutRec");
       OutRec newOutRec = NewOutRec();
       newOutRec.owner = outrec.owner;
       splitOp.outrec = newOutRec;

@@ -474,9 +474,11 @@ namespace Clipper2Lib
           path[j].Y + (_normals[k].y + _normals[j].y) * q,
           path[j].Z));
 #else
-      pathOut.Add(new Point64(
+      Point64 pt = new Point64(
           path[j].X + (_normals[k].x + _normals[j].x) * q,
-          path[j].Y + (_normals[k].y + _normals[j].y) * q));
+          path[j].Y + (_normals[k].y + _normals[j].y) * q);
+      Console.WriteLine("DoMiter pt:" + pt.ToString());
+      pathOut.Add(pt);
 #endif
     }
 
