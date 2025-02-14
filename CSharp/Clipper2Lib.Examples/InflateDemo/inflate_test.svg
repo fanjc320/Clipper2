@@ -1,0 +1,10 @@
+<?xml version="1.0" standalone="no"?>
+<svg width="800px" height="600px" viewBox="0 0 800 600" version="1.1" xmlns="http://www.w3.org/2000/svg">
+
+ <path d=" M 83.67 83.00 L 603.67 83.00 L 603.67 516.33 L 83.67 516.33 M 408.67 191.33 L 517.00 408.00 L 170.33 408.00"
+ style="fill:none; stroke:#B3B3DA;stroke-opacity:0.67; stroke-width:1.20;"/>
+
+ <path d=" M 647.00 65.06 L 647.00 534.27 L 621.61 559.67 L 65.73 559.67 L 40.33 534.27 L 40.33 65.06 L 65.73 39.67 L 621.61 39.67 z M 127.00 473.00 L 560.33 473.00 L 560.33 420.31 L 541.16 451.33 L 140.63 451.33 L 127.00 416.08 z M 127.00 126.33 L 127.00 388.80 L 395.45 144.77 L 437.79 152.70 L 560.33 397.75 L 560.33 126.33 z M 282.42 364.67 L 446.89 364.67 L 395.47 261.86 z"
+ style="fill:#80FF9C; fill-opacity:0.25; fill-rule:evenodd; stroke:#003300; stroke-opacity:1.00; stroke-width:1.50;"/>
+
+</svg>
