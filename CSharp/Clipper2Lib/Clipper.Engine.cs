@@ -14,6 +14,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Runtime.CompilerServices;
 
 namespace Clipper2Lib
@@ -93,7 +94,7 @@ namespace Clipper2Lib
   // IntersectNode: a structure representing 2 intersecting edges.
   // Intersections must be sorted so they are processed from the largest
   // Y coordinates to the smallest while keeping edges adjacent.
-  internal readonly struct IntersectNode
+  internal readonly struct IntersectNode//??????Intersections must be sorted????
   {
     public readonly Point64 pt;
     public readonly Active edge1;
@@ -147,7 +148,7 @@ namespace Clipper2Lib
         Console.WriteLine(result);
       }
       
-      return result + '\n';
+      return result;
     }
   }
 
@@ -159,16 +160,16 @@ namespace Clipper2Lib
   internal class OutRec
   {
     public int idx;
-    public OutRec? owner;
-    public Active? frontEdge;
-    public Active? backEdge;
-    public OutPt? pts;
-    public PolyPathBase? polypath;
+    public OutRec? owner;//????
+    public Active? frontEdge;//????
+    public Active? backEdge;//?????
+    public OutPt? pts;////一个OutRec对应一个OutPt, OutPt指向一个多边形链表,所以一个OutRec对应一个多边形, 日志显示确实如此
+    public PolyPathBase? polypath;//?????
     public Rect64 bounds;
-    public Path64 path = new Path64();
+    public Path64 path = new Path64();//???
     public bool isOpen;
-    public List<int>? splits;
-    public OutRec? recursiveSplit;
+    public List<int>? splits;//?????
+    public OutRec? recursiveSplit;//????
   }
 
   internal class HorzSegment
@@ -215,16 +216,16 @@ namespace Clipper2Lib
     //     a linked list of all edges (from left to right) that are present
     //     (or 'active') within the current scanbeam (a horizontal 'beam' that
     //     sweeps from bottom to top over the paths in the clipping operation).
-    public Active? prevInAEL;
-    public Active? nextInAEL;
+    public Active? prevInAEL;//AEL双向链表
+    public Active? nextInAEL;//AEL双向链表
 
     // SEL: 'sorted edge list' (Vatti's ST - sorted table)
     //     linked list used when sorting edges into their new positions at the
     //     top of scanbeams, but also (re)used to process horizontals.
-    public Active? prevInSEL;
-    public Active? nextInSEL;
-    public Active? jump;
-    public Vertex? vertexTop;
+    public Active? prevInSEL;//SEL双向链表
+    public Active? nextInSEL;//SEL双向链表
+    public Active? jump;//????????
+    public Vertex? vertexTop;// 下一个top，搜索使用的地方就知道了
     public LocalMinima localMin; // the bottom of an edge 'bound' (also Vatti)
     internal bool isLeftBound;
     internal JoinWith joinWith;
@@ -232,7 +233,7 @@ namespace Clipper2Lib
     public string ToString()
     {
       string result = $"Active bot:" + bot.ToString();
-      result += "top:" + top.ToString() + " curX:" + curX;
+      result += "top:" + top.ToString() + " curX:" + curX + " vertexTop:" + vertexTop.pt;
 
       return result + '\n';
     }
@@ -382,7 +383,7 @@ namespace Clipper2Lib
     private readonly List<LocalMinima> _minimaList;
     private readonly List<IntersectNode> _intersectList;
     private readonly List<Vertex> _vertexList;
-    private readonly List<OutRec> _outrecList;
+    private readonly List<OutRec> _outrecList;//从这个容器里开始buildPath
     private readonly List<long> _scanlineList;
     private readonly List<HorzSegment> _horzSegList;
     private readonly List<HorzJoin> _horzJoinList;
@@ -497,7 +498,7 @@ namespace Clipper2Lib
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static bool IsFront(Active ae)
+    private static bool IsFront(Active ae)//?????
     {
       return (ae == ae.outrec!.frontEdge);
     }
@@ -770,7 +771,7 @@ namespace Clipper2Lib
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static bool EdgesAdjacentInAEL(IntersectNode inode)
+    private static bool EdgesAdjacentInAEL(IntersectNode inode)//!!!!
     {
       return (inode.edge1.nextInAEL == inode.edge2) || (inode.edge1.prevInAEL == inode.edge2);
     }
@@ -1365,13 +1366,13 @@ namespace Clipper2Lib
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private OutPt? AddLocalMaxPoly(Active ae1, Active ae2, Point64 pt)
     {
-      if (IsJoined(ae1)) Split(ae1, pt);
+      if (IsJoined(ae1)) Split(ae1, pt);/////????
       if (IsJoined(ae2)) Split(ae2, pt);
 
       if (IsFront(ae1) == IsFront(ae2))
       {
         if (IsOpenEnd(ae1))
-          SwapFrontBackSides(ae1.outrec!);
+          SwapFrontBackSides(ae1.outrec!);//????
         else if (IsOpenEnd(ae2))
           SwapFrontBackSides(ae2.outrec!);
         else
@@ -1540,7 +1541,7 @@ namespace Clipper2Lib
     {
       ae.bot = ae.top;
       ae.vertexTop = NextVertex(ae);
-      ae.top = ae.vertexTop!.pt;
+      ae.top = ae.vertexTop!.pt; //!!!!!!!!
       ae.curX = ae.bot.X;
       SetDx(ae);
 
@@ -1585,8 +1586,8 @@ namespace Clipper2Lib
       {
         if (IsOpen(ae1) && IsOpen(ae2)) return;
         // the following line avoids duplicating quite a bit of code
-        if (IsOpen(ae2)) SwapActives(ref ae1, ref ae2);
-        if (IsJoined(ae2)) Split(ae2, pt); // needed for safety
+        if (IsOpen(ae2)) SwapActives(ref ae1, ref ae2);   //???????
+        if (IsJoined(ae2)) Split(ae2, pt); // needed for safety  //???????
 
         if (_cliptype == ClipType.Union)
         {
@@ -1650,8 +1651,8 @@ namespace Clipper2Lib
       }
 
       // MANAGING CLOSED PATHS FROM HERE ON
-      if (IsJoined(ae1)) Split(ae1, pt);
-      if (IsJoined(ae2)) Split(ae2, pt);
+      if (IsJoined(ae1)) Split(ae1, pt);   //?????
+      if (IsJoined(ae2)) Split(ae2, pt);   //?????
 
       // UPDATE WINDING COUNTS...
 
@@ -1983,14 +1984,14 @@ namespace Clipper2Lib
 
       // Calculate edge positions at the top of the current scanbeam, and from this
       // we will determine the intersections required to reach these new positions.
-      AdjustCurrXAndCopyToSEL(topY);
+      AdjustCurrXAndCopyToSEL(topY);//??????
 
       // Find all edge intersections in the current scanbeam using a stable merge
       // sort that ensures only adjacent edges are intersecting. Intersect info is
       // stored in FIntersectList ready to be processed in ProcessIntersectList.
       // Re merge sorts see https://stackoverflow.com/a/46319131/359538
 
-      Active? left = _sel;
+      Active? left = _sel;//??????
 
       while (left!.jump != null)
       {
@@ -2037,7 +2038,7 @@ namespace Clipper2Lib
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private void ProcessIntersectList()
+    private void ProcessIntersectList()//!!!!!!!!
     {
       // We now have a list of intersections required so that edges will be
       // correctly positioned at the top of the scanbeam. However, it's important
@@ -2066,7 +2067,7 @@ namespace Clipper2Lib
         Console.WriteLine("ProcessIntersectList edge1.bot:"+ node.edge1.bot + " top:" + node.edge1.top + 
           " edge2.bot:" + node.edge2.bot + " top:" + node.edge2.top
           +" pt:" + node.pt);
-        SwapPositionsInAEL(node.edge1, node.edge2);
+        SwapPositionsInAEL(node.edge1, node.edge2);//!!!!!
 
         node.edge1.curX = node.pt.X;//更新当前活动边与scanline的交点的x值
         node.edge2.curX = node.pt.X;
@@ -2328,8 +2329,8 @@ private void DoHorizontal(Active horz)
           }
 
           // INTERMEDIATE VERTEX ...
-          if (IsHotEdge(ae))
-            AddOutPt(ae, ae.top);
+          if (IsHotEdge(ae))//!!!!!!!
+            AddOutPt(ae, ae.top);//ae.outrec.pts = ae.top
           UpdateEdgeIntoAEL(ae);
           if (IsHorizontal(ae))
             PushHorz(ae); // horizontals are processed later
@@ -2987,7 +2988,8 @@ private void DoHorizontal(Active horz)
     {
       if (op == null || op.next == op || (!isOpen && op.next == op.prev)) return false;
       path.Clear();
-      Console.WriteLine(">>>>>>>>>>>>> op.pt:" + op.pt);
+      //Console.WriteLine(">>>>>BuildPath op.pt:" + op.pt);
+      Console.WriteLine(">>>>>BuildPath");
       Point64 lastPt;
       OutPt op2;
       if (reverse)
@@ -3019,7 +3021,8 @@ private void DoHorizontal(Active horz)
         else
           op2 = op2.next!;
       }
-      Console.WriteLine("<<<<<<<<<<<<<<<< op.pt:" + op.pt);//不再改变
+      //Console.WriteLine("<<<<<<BuildPath op.pt:" + op.pt);//op.pt改变了
+      Console.WriteLine("<<<<<<BuildPath");
       return path.Count != 3 || isOpen || !IsVerySmallTriangle(op2);
     }
 
@@ -3029,12 +3032,15 @@ private void DoHorizontal(Active horz)
       solutionOpen.Clear();
       solutionClosed.EnsureCapacity(_outrecList.Count);
       solutionOpen.EnsureCapacity(_outrecList.Count);
-      //if(_outrecList.Count>0)
+      //if (_outrecList != null && _outrecList.Count > 0)
       //{
-      //  Console.WriteLine("_outrecList[0].pts:" + _outrecList[0].pts.ToString());
-      //}else
-      //{
-      //  Console.WriteLine("_outrecList.Count:" + _outrecList.Count);
+      //  Console.WriteLine("_outrecList.Count:" + _outrecList!.Count);
+      //  for (int k = 0; k < _outrecList!.Count; k++)
+      //  {
+      //    // pt:34000,15000  numb:1 pt:34000,20000  numb:2 pt:10000,20000  numb:3 pt:10000,15000//下面的四边形
+      //    // pt:34000,0  numb:1 pt:34000,10000  numb:2 pt:30000,5000  numb:3 pt:10000,12692  numb:4 pt:10000,0//上面的五边形
+      //    Console.WriteLine("k:" + k + " _outrecList[k].pts:" + _outrecList[k].pts.ToString());
+      //  }
       //}
       int i = 0;
       // _outrecList.Count is not static here because
@@ -3049,16 +3055,25 @@ private void DoHorizontal(Active horz)
         {
           if (BuildPath(outrec.pts, ReverseSolution, true, path))
             solutionOpen.Add(path);
+          Console.WriteLine("BuildPaths outrec isOpen!!!!!");
         }
         else
         {
           CleanCollinear(outrec);
           // closed paths should always return a Positive orientation
           // except when ReverseSolution == true
-          Console.WriteLine("BuildPaths before outrec.pts:" + outrec.pts.ToString());
+          //>>BuildPaths before outrec.pts:OutPt pt:31061,16020  numb:1 pt:30000,20000  numb:2 pt:15000,25000  numb:3 pt:13714,18571
+          //>> BuildPaths before path:Path6
+          Console.WriteLine(">>BuildPaths before outrec.pts:" + outrec.pts.ToString());
+          Console.WriteLine(">>BuildPaths before path:" + path.ToString());//空的
           if (BuildPath(outrec.pts, ReverseSolution, false, path))
-            Console.WriteLine("BuildPaths after outrec.pts:" + outrec.pts.ToString());//outrec.pts并未改变
-          solutionClosed.Add(path);
+          {
+            solutionClosed.Add(path);
+          }
+          //<< BuildPaths after outrec.pts: OutPt pt:31061,16020  numb: 1 pt: 30000,20000  numb: 2 pt: 15000,25000  numb: 3 pt: 13714,18571
+          //<< BuildPaths after path:Path64: 30000,20000 , 15000,25000 , 13714,18571 , 31061,16020
+          Console.WriteLine("<<BuildPaths after outrec.pts:" + outrec.pts.ToString());//outrec.pts并未改变
+          Console.WriteLine("<<BuildPaths after path:" + path.ToString());//由空变为只是同outrec内容一样，只是顺序不同,所以outrec已经包含完备信息，重点关注outrec的生成,即outrec.pts及其next指针指向的链表 
         }
       }
       return true;
@@ -3141,7 +3156,7 @@ private void DoHorizontal(Active horz)
       solutionOpen.Clear();
       if (_hasOpenPaths)
         solutionOpen.EnsureCapacity(_outrecList.Count);
-
+      Console.WriteLine("BuildTree _outrecList.Count:" + _outrecList.Count);
       int i = 0;
       // _outrecList.Count is not static here because
       // CheckBounds below can indirectly add additional
@@ -3536,7 +3551,7 @@ private void DoHorizontal(Active horz)
 
     internal string ToStringInternal(int idx, int level)
     {
-      string result = "", padding = "", plural = "s";
+      string result = "PolyPathBase:", padding = "", plural = "s";
       if (_childs.Count == 1) plural = "";
       padding = padding.PadLeft(level * 2);
       if ((level & 1) == 0)

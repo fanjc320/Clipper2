@@ -429,7 +429,7 @@ namespace Clipper2Lib
     public Path64(IEnumerable<Point64> path) : base(path) { }
     public override string ToString()
     {
-      string s = "";
+      string s = "Path64:";
       foreach (Point64 p in this)
         s = s + p.ToString() + ", ";
       if (s != "") s = s.Remove(s.Length - 2);

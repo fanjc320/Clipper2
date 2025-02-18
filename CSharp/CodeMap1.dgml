@@ -1,0 +1,562 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DirectedGraph DataVirtualized="True" Layout="Sugiyama" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+  <Nodes>
+    <Node Id="(@1 @2 @3 Member=(Name=AddNewIntersectNode OverloadingParameters=[@4,@4,(@8 Namespace=System Type=Int64)]))" Category="CodeSchema_Method" Bounds="1506.361703125,497.160014038086,167.343333333333,25.24" CodeSchemaProperty_IsPrivate="True" CommonLabel="AddNewIntersectNode" Icon="CodeSchema_Method" Label="AddNewIntersectNode" SourceLocation="(Assembly=file:///E:/projs_test/Clipper2/CSharp/Clipper2Lib/Clipper.Engine.cs StartLineNumber=1922 StartCharacterOffset=0 EndLineNumber=1922 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="(@1 @2 @3 Member=(Name=BuildPath OverloadingParameters=[(@1 @2 Type=OutPt),@24,@24,(@1 @2 Type=Path64)]))" Category="CodeSchema_Method" Bounds="596.417674906473,315.569389953157,90.8233333333334,25.24" CodeSchemaProperty_IsInternal="True" CodeSchemaProperty_IsStatic="True" CommonLabel="BuildPath" Icon="CodeSchema_Method" Label="BuildPath" SourceLocation="(Assembly=file:///E:/projs_test/Clipper2/CSharp/Clipper2Lib/Clipper.Engine.cs StartLineNumber=2988 StartCharacterOffset=0 EndLineNumber=2988 EndCharacterOffset=0)" UseManualLocation="True">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="(@1 @2 @3 Member=(Name=EdgesAdjacentInAEL OverloadingParameters=[(@1 @2 Type=IntersectNode)]))" Category="CodeSchema_Method" Bounds="1142.50836979167,497.160256170273,153.08,25.24" CodeSchemaProperty_IsPrivate="True" CodeSchemaProperty_IsStatic="True" CommonLabel="EdgesAdjacentInAEL" Icon="CodeSchema_Method" Label="EdgesAdjacentInAEL" SourceLocation="(Assembly=file:///E:/projs_test/Clipper2/CSharp/Clipper2Lib/Clipper.Engine.cs StartLineNumber=775 StartCharacterOffset=0 EndLineNumber=775 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="(@1 @2 @3 Member=(Name=ExtractFromSEL @5))" Category="CodeSchema_Method" Bounds="1703.64833333333,497.159999999999,124.363333333333,25.24" CodeSchemaProperty_IsPrivate="True" CodeSchemaProperty_IsStatic="True" CommonLabel="ExtractFromSEL" Icon="CodeSchema_Method" Label="ExtractFromSEL" SourceLocation="(Assembly=file:///E:/projs_test/Clipper2/CSharp/Clipper2Lib/Clipper.Engine.cs StartLineNumber=1963 StartCharacterOffset=0 EndLineNumber=1963 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="(@1 @2 @3 Member=(Name=Insert1Before2InSEL @15))" Category="CodeSchema_Method" Bounds="1858.56333333333,497.159999999999,150.533333333333,25.24" CodeSchemaProperty_IsPrivate="True" CodeSchemaProperty_IsStatic="True" CommonLabel="Insert1Before2InSEL" Icon="CodeSchema_Method" Label="Insert1Before2InSEL" SourceLocation="(Assembly=file:///E:/projs_test/Clipper2/CSharp/Clipper2Lib/Clipper.Engine.cs StartLineNumber=1973 StartCharacterOffset=0 EndLineNumber=1973 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="(@1 @2 @3 Member=(Name=InsertLeftEdge @5))" Category="CodeSchema_Method" Bounds="158.483333333333,552.4,118.693333333333,25.24" CodeSchemaProperty_IsPrivate="True" CommonLabel="InsertLeftEdge" Icon="CodeSchema_Method" Label="InsertLeftEdge" SourceLocation="(Assembly=file:///E:/projs_test/Clipper2/CSharp/Clipper2Lib/Clipper.Engine.cs StartLineNumber=1141 StartCharacterOffset=0 EndLineNumber=1141 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="(@1 @2 @3 Member=(Name=InsertRightEdge @15))" Category="CodeSchema_Method" Bounds="0,552.4,127.66,25.24" CodeSchemaProperty_IsPrivate="True" CodeSchemaProperty_IsStatic="True" CommonLabel="InsertRightEdge" Icon="CodeSchema_Method" Label="InsertRightEdge" SourceLocation="(Assembly=file:///E:/projs_test/Clipper2/CSharp/Clipper2Lib/Clipper.Engine.cs StartLineNumber=1174 StartCharacterOffset=0 EndLineNumber=1174 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="(@1 @2 @3 Member=(Name=SetOwner OverloadingParameters=[(@1 @2 Type=OutRec),(@1 @2 Type=OutRec)]))" Category="CodeSchema_Method" Bounds="789.706653238932,688.017251108745,92.2466666666667,25.24" CodeSchemaProperty_IsPrivate="True" CodeSchemaProperty_IsStatic="True" CommonLabel="SetOwner" Icon="CodeSchema_Method" Label="SetOwner" SourceLocation="(Assembly=file:///E:/projs_test/Clipper2/CSharp/Clipper2Lib/Clipper.Engine.cs StartLineNumber=692 StartCharacterOffset=0 EndLineNumber=692 EndCharacterOffset=0)" UseManualLocation="True">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="(@1 @2 @3 Member=(Name=SetSides OverloadingParameters=[(@1 @2 Type=OutRec),@4,@4]))" Category="CodeSchema_Method" Bounds="656.10077738444,607.640114444987,84.3666666666667,25.24" CodeSchemaProperty_IsPrivate="True" CodeSchemaProperty_IsStatic="True" CommonLabel="SetSides" Icon="CodeSchema_Method" Label="SetSides" SourceLocation="(Assembly=file:///E:/projs_test/Clipper2/CSharp/Clipper2Lib/Clipper.Engine.cs StartLineNumber=652 StartCharacterOffset=0 EndLineNumber=652 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="(@1 @2 @3 Member=(Name=SwapOutrecs @15))" Category="CodeSchema_Method" Bounds="1064.99937252103,576.440933182907,111.303333333334,25.24" CodeSchemaProperty_IsPrivate="True" CodeSchemaProperty_IsStatic="True" CommonLabel="SwapOutrecs" Icon="CodeSchema_Method" Label="SwapOutrecs" SourceLocation="(Assembly=file:///E:/projs_test/Clipper2/CSharp/Clipper2Lib/Clipper.Engine.cs StartLineNumber=660 StartCharacterOffset=0 EndLineNumber=660 EndCharacterOffset=0)" UseManualLocation="True">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="(@1 @2 @3 Member=(Name=SwapPositionsInAEL @15))" Category="CodeSchema_Method" Bounds="1325.58836979167,497.160014038086,150.773333333333,25.24" CodeSchemaProperty_IsPrivate="True" CommonLabel="SwapPositionsInAEL" Icon="CodeSchema_Method" Label="SwapPositionsInAEL" SourceLocation="(Assembly=file:///E:/projs_test/Clipper2/CSharp/Clipper2Lib/Clipper.Engine.cs StartLineNumber=2081 StartCharacterOffset=0 EndLineNumber=2081 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="(@1 @2 @3 Member=NewOutRec)" Category="CodeSchema_Method" Bounds="521.658333333333,607.639999999999,104.343333333333,25.24" CodeSchemaProperty_IsPrivate="True" CommonLabel="NewOutRec" Icon="CodeSchema_Method" Label="NewOutRec" SourceLocation="(Assembly=file:///E:/projs_test/Clipper2/CSharp/Clipper2Lib/Clipper.Engine.cs StartLineNumber=1498 StartCharacterOffset=0 EndLineNumber=1498 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="(@1 @2 Type=ClipperEngine Member=(Name=AddLocMin OverloadingParameters=[(@1 @2 Type=Vertex),(@1 @2 Type=PathType),@24,(@8 Namespace=System.Collections.Generic Type=(Name=List GenericParameterCount=1 GenericArguments=[(@1 @2 Type=LocalMinima)]))]))" Category="CodeSchema_Method" Bounds="1312.7229309082,386.679987792969,101.91,25.24" CodeSchemaProperty_IsInternal="True" CodeSchemaProperty_IsStatic="True" CommonLabel="AddLocMin" Icon="CodeSchema_Method" Label="AddLocMin" SourceLocation="(Assembly=file:///E:/projs_test/Clipper2/CSharp/Clipper2Lib/Clipper.Engine.cs StartLineNumber=251 StartCharacterOffset=0 EndLineNumber=251 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="(@36 Namespace=ClipperDemo1 Type=Application Member=Main)" Category="CodeSchema_Method" Bounds="1128.35828938802,-0.490145398584954,64.9433333333334,25.24" CodeSchemaProperty_IsPublic="True" CodeSchemaProperty_IsStatic="True" CommonLabel="Main" Icon="CodeSchema_Method" Label="Main" SourceLocation="(Assembly=file:///E:/projs_test/Clipper2/CSharp/Clipper2Lib.Examples/InflateDemo/Main.cs StartLineNumber=21 StartCharacterOffset=0 EndLineNumber=21 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="(Name=Clipper2Lib.ClipperBase.PopScanline @39 Type=bool OverloadingParameters=[(Type=long Name=y)] IsUnresolved=True)" Category="CodeSchema_CallStackUnresolvedMethod" Bounds="1020.3529309082,386.190546875,106.196666666667,25.24" Label="PopScanline" SourceLocation="(Assembly=file:///E:/projs_test/Clipper2/CSharp/Clipper2Lib/Clipper.Engine.cs StartLineNumber=832 StartCharacterOffset=0 EndLineNumber=832 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="@10" Category="CodeSchema_Method" Bounds="1522.83333333333,441.919999999999,133.993333333333,25.24" CodeSchemaProperty_IsPrivate="True" CommonLabel="BuildIntersectList" Icon="CodeSchema_Method" Label="BuildIntersectList" SourceLocation="(Assembly=file:///E:/projs_test/Clipper2/CSharp/Clipper2Lib/Clipper.Engine.cs StartLineNumber=1982 StartCharacterOffset=0 EndLineNumber=1982 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="@11" Category="CodeSchema_Method" Bounds="1156.54959757487,386.679987792969,126.173333333333,25.24" CodeSchemaProperty_IsPrivate="True" CommonLabel="DoIntersections" Icon="CodeSchema_Method" Label="DoIntersections" SourceLocation="(Assembly=file:///E:/projs_test/Clipper2/CSharp/Clipper2Lib/Clipper.Engine.cs StartLineNumber=1906 StartCharacterOffset=0 EndLineNumber=1906 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="@12" Category="CodeSchema_Method" Bounds="842.14959757487,428.812006835937,148.203333333333,25.24" CodeSchemaProperty_IsPrivate="True" CommonLabel="DoTopOfScanbeam" Icon="CodeSchema_Method" Label="DoTopOfScanbeam" SourceLocation="(Assembly=file:///E:/projs_test/Clipper2/CSharp/Clipper2Lib/Clipper.Engine.cs StartLineNumber=2326 StartCharacterOffset=0 EndLineNumber=2326 EndCharacterOffset=0)" UseManualLocation="True">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="@13" Category="CodeSchema_Method" Bounds="416.043894871802,423.250813846325,185.563333333333,25.24" CodeSchemaProperty_IsPrivate="True" CommonLabel="InsertLocalMinimaIntoAEL" Icon="CodeSchema_Method" Label="InsertLocalMinimaIntoAEL" SourceLocation="(Assembly=file:///E:/projs_test/Clipper2/CSharp/Clipper2Lib/Clipper.Engine.cs StartLineNumber=1295 StartCharacterOffset=0 EndLineNumber=1295 EndCharacterOffset=0)" UseManualLocation="True">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="@14" Category="CodeSchema_Method" Bounds="307.881666666666,552.4,115.896666666667,25.24" CodeSchemaProperty_IsPrivate="True" CommonLabel="InsertScanline" Icon="CodeSchema_Method" Label="InsertScanline" SourceLocation="(Assembly=file:///E:/projs_test/Clipper2/CSharp/Clipper2Lib/Clipper.Engine.cs StartLineNumber=826 StartCharacterOffset=0 EndLineNumber=826 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="@16" Category="CodeSchema_Method" Bounds="770.467466634115,624.214466503906,129.413333333333,25.24" CodeSchemaProperty_IsPrivate="True" CodeSchemaProperty_IsStatic="True" CommonLabel="JoinOutrecPaths" Icon="CodeSchema_Method" Label="JoinOutrecPaths" SourceLocation="(Assembly=file:///E:/projs_test/Clipper2/CSharp/Clipper2Lib/Clipper.Engine.cs StartLineNumber=1454 StartCharacterOffset=0 EndLineNumber=1454 EndCharacterOffset=0)" UseManualLocation="True">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="@19" Category="CodeSchema_Method" Bounds="924.738319905599,330.950454601415,124.183333333333,25.24" CodeSchemaProperty_IsProtected="True" CommonLabel="ExecuteInternal" Icon="CodeSchema_Method" Label="ExecuteInternal" SourceLocation="(Assembly=file:///E:/projs_test/Clipper2/CSharp/Clipper2Lib/Clipper.Engine.cs StartLineNumber=1891 StartCharacterOffset=0 EndLineNumber=1891 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="@21" Category="CodeSchema_Method" Bounds="734.134939371745,306.597642260742,96.3766666666667,25.24" CodeSchemaProperty_IsProtected="True" CommonLabel="BuildPaths" Icon="CodeSchema_Method" Label="BuildPaths" SourceLocation="(Assembly=file:///E:/projs_test/Clipper2/CSharp/Clipper2Lib/Clipper.Engine.cs StartLineNumber=3068 StartCharacterOffset=0 EndLineNumber=3068 EndCharacterOffset=0)" UseManualLocation="True">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="@23" Category="CodeSchema_Method" Bounds="970.833878896256,656.256109325433,93.2533333333338,25.24" CodeSchemaProperty_IsPrivate="True" CodeSchemaProperty_IsStatic="True" CommonLabel="AddOutPt" Icon="CodeSchema_Method" Label="AddOutPt" SourceLocation="(Assembly=file:///E:/projs_test/Clipper2/CSharp/Clipper2Lib/Clipper.Engine.cs StartLineNumber=1470 StartCharacterOffset=0 EndLineNumber=1470 EndCharacterOffset=0)" UseManualLocation="True">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="@25" Category="CodeSchema_Method" Bounds="1115.23668375651,220.470254601415,91.1866666666667,25.24" CodeSchemaProperty_IsInternal="True" CommonLabel="AddPaths" Icon="CodeSchema_Method" Label="AddPaths" SourceLocation="(Assembly=file:///E:/projs_test/Clipper2/CSharp/Clipper2Lib/Clipper.Engine.cs StartLineNumber=3220 StartCharacterOffset=0 EndLineNumber=3220 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="@26" Category="CodeSchema_Method" Bounds="1115.23668375651,275.710354601415,91.1866666666667,25.24" CodeSchemaProperty_IsProtected="True" CommonLabel="AddPaths" Icon="CodeSchema_Method" Label="AddPaths" SourceLocation="(Assembly=file:///E:/projs_test/Clipper2/CSharp/Clipper2Lib/Clipper.Engine.cs StartLineNumber=888 StartCharacterOffset=0 EndLineNumber=888 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="@27" Category="CodeSchema_Method" Bounds="454.158333333333,552.399999999999,115.343333333333,25.24" CodeSchemaProperty_IsPrivate="True" CommonLabel="CheckJoinLeft" Icon="CodeSchema_Method" Label="CheckJoinLeft" SourceLocation="(Assembly=file:///E:/projs_test/Clipper2/CSharp/Clipper2Lib/Clipper.Engine.cs StartLineNumber=2425 StartCharacterOffset=0 EndLineNumber=2425 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="@28" Category="CodeSchema_Method" Bounds="1113.29162272135,109.990054601415,95.0766666666666,25.24" CodeSchemaProperty_IsPublic="True" CodeSchemaProperty_IsStatic="True" CommonLabel="Difference" Icon="CodeSchema_Method" Label="Difference" SourceLocation="(Assembly=file:///E:/projs_test/Clipper2/CSharp/Clipper2Lib/Clipper.cs StartLineNumber=68 StartCharacterOffset=0 EndLineNumber=68 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="@29" Category="CodeSchema_Method" Bounds="1004.74001708984,220.470254601415,80.1800000000001,25.24" CodeSchemaProperty_IsPublic="True" CommonLabel="Execute" Icon="CodeSchema_Method" Label="Execute" SourceLocation="(Assembly=file:///E:/projs_test/Clipper2/CSharp/Clipper2Lib/Clipper.Engine.cs StartLineNumber=3263 StartCharacterOffset=0 EndLineNumber=3263 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="@30" Category="CodeSchema_Method" Bounds="784.064070638021,568.974366503906,138.383333333333,25.24" CodeSchemaProperty_IsPrivate="True" CommonLabel="AddLocalMaxPoly" Icon="CodeSchema_Method" Label="AddLocalMaxPoly" SourceLocation="(Assembly=file:///E:/projs_test/Clipper2/CSharp/Clipper2Lib/Clipper.Engine.cs StartLineNumber=1368 StartCharacterOffset=0 EndLineNumber=1368 EndCharacterOffset=0)" UseManualLocation="True">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="@31" Category="CodeSchema_Method" Bounds="992.561703125,497.160256170273,119.946666666667,25.24" CodeSchemaProperty_IsPrivate="True" CommonLabel="IntersectEdges" Icon="CodeSchema_Method" Label="IntersectEdges" SourceLocation="(Assembly=file:///E:/projs_test/Clipper2/CSharp/Clipper2Lib/Clipper.Engine.cs StartLineNumber=1769 StartCharacterOffset=0 EndLineNumber=1769 EndCharacterOffset=0)" UseManualLocation="True">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="@32" Category="CodeSchema_Method" Bounds="599.703333333333,552.4,136.253333333333,25.24" CodeSchemaProperty_IsPrivate="True" CommonLabel="AddLocalMinPoly" Icon="CodeSchema_Method" Label="AddLocalMinPoly" SourceLocation="(Assembly=file:///E:/projs_test/Clipper2/CSharp/Clipper2Lib/Clipper.Engine.cs StartLineNumber=1319 StartCharacterOffset=0 EndLineNumber=1319 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="@33" Category="CodeSchema_Method" Bounds="1110.69835042318,165.230154601415,100.263333333333,25.24" CodeSchemaProperty_IsPublic="True" CodeSchemaProperty_IsStatic="True" CommonLabel="BooleanOp" Icon="CodeSchema_Method" Label="BooleanOp" SourceLocation="(Assembly=file:///E:/projs_test/Clipper2/CSharp/Clipper2Lib/Clipper.cs StartLineNumber=99 StartCharacterOffset=0 EndLineNumber=99 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="@34" Category="CodeSchema_Method" Bounds="946.740017089844,275.710354601415,80.1799999999999,25.24" CodeSchemaProperty_IsPublic="True" CommonLabel="Execute" Icon="CodeSchema_Method" Label="Execute" SourceLocation="(Assembly=file:///E:/projs_test/Clipper2/CSharp/Clipper2Lib/Clipper.Engine.cs StartLineNumber=3248 StartCharacterOffset=0 EndLineNumber=3248 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="@35" Category="CodeSchema_Method" Bounds="1079.85828938802,330.950454601415,161.943333333333,25.24" CodeSchemaProperty_IsInternal="True" CodeSchemaProperty_IsStatic="True" CommonLabel="AddPathsToVertexList" Icon="CodeSchema_Method" Label="AddPathsToVertexList" SourceLocation="(Assembly=file:///E:/projs_test/Clipper2/CSharp/Clipper2Lib/Clipper.Engine.cs StartLineNumber=348 StartCharacterOffset=0 EndLineNumber=348 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="@37" Category="CodeSchema_Method" Bounds="1073.37828938802,54.749954601415,174.903333333333,25.24" CodeSchemaProperty_IsPublic="True" CodeSchemaProperty_IsStatic="True" CommonLabel="DoSimpleClipperOffset4" Icon="CodeSchema_Method" Label="DoSimpleClipperOffset4" SourceLocation="(Assembly=file:///E:/projs_test/Clipper2/CSharp/Clipper2Lib.Examples/InflateDemo/Main.cs StartLineNumber=468 StartCharacterOffset=0 EndLineNumber=468 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="@38" Category="CodeSchema_Method" Bounds="1143.58166666667,441.92,148.496666666667,25.24" CodeSchemaProperty_IsPrivate="True" CommonLabel="ProcessIntersectList" Icon="CodeSchema_Method" Label="ProcessIntersectList" SourceLocation="(Assembly=file:///E:/projs_test/Clipper2/CSharp/Clipper2Lib/Clipper.Engine.cs StartLineNumber=2064 StartCharacterOffset=0 EndLineNumber=2064 EndCharacterOffset=0)">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="@6" Category="CodeSchema_Method" Bounds="826.061957397461,489.348444824219,98.28,25.24" CodeSchemaProperty_IsPrivate="True" CommonLabel="DoMaxima" Icon="CodeSchema_Method" Label="DoMaxima" SourceLocation="(Assembly=file:///E:/projs_test/Clipper2/CSharp/Clipper2Lib/Clipper.Engine.cs StartLineNumber=2392 StartCharacterOffset=0 EndLineNumber=2392 EndCharacterOffset=0)" UseManualLocation="True">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+    <Node Id="@7" Category="CodeSchema_Method" Bounds="644.871957397461,467.716517333984,151.19,25.24" CodeSchemaProperty_IsPrivate="True" CommonLabel="UpdateEdgeIntoAEL" Icon="CodeSchema_Method" Label="UpdateEdgeIntoAEL" SourceLocation="(Assembly=file:///E:/projs_test/Clipper2/CSharp/Clipper2Lib/Clipper.Engine.cs StartLineNumber=1555 StartCharacterOffset=0 EndLineNumber=1555 EndCharacterOffset=0)" UseManualLocation="True">
+      <Category Ref="CallStackEntry" />
+      <Category Ref="CodeSchema_SourceLocation" />
+    </Node>
+  </Nodes>
+  <Links>
+    <Link Source="(@36 Namespace=ClipperDemo1 Type=Application Member=Main)" Target="@37" Category="CallStackDirectCall" Bounds="1160.82995605469,24.749854601415,0,21.0001" />
+    <Link Source="@10" Target="(@1 @2 @3 Member=(Name=AddNewIntersectNode OverloadingParameters=[@4,@4,(@8 Namespace=System Type=Int64)]))" Category="CallStackDirectCall" Bounds="1589.87647456345,467.160008544922,0.077306658788757,21.0000664750102" />
+    <Link Source="@10" Target="(@1 @2 @3 Member=(Name=ExtractFromSEL @5))" Category="CallStackDirectCall" Bounds="1630.05150798087,467.160008544922,87.0264769134699,27.3056546218916" />
+    <Link Source="@10" Target="(@1 @2 @3 Member=(Name=Insert1Before2InSEL @15))" Category="CallStackDirectCall" Bounds="1656.61596679688,465.264587402344,194.129028320313,31.1735229492188" />
+    <Link Source="@11" Target="@10" Category="CallStackDirectCall" Bounds="1282.7229309082,408.713730593934,231.232342033209,34.5043082822396" />
+    <Link Source="@11" Target="@38" Category="CallStackDirectCall" Bounds="1218.5367941605,411.919987792969,0.686819275626021,21.004828161458" />
+    <Link Source="@12" Target="@23" Category="CallStackDirectCall" Bounds="921.866964686409,454.052006835938,86.3188731374079,193.981438983034" />
+    <Link Source="@12" Target="@6" Category="CallStackDirectCall" Bounds="888.810551360916,454.052006835938,18.8831747515273,27.8474982368754" />
+    <Link Source="@12" Target="@7" Category="CallStackDirectCall" Bounds="792.803653399637,454.052006835938,59.9383091442849,11.9104067634979" />
+    <Link Source="@13" Target="(@1 @2 @3 Member=(Name=InsertLeftEdge @5))" Category="CallStackDirectCall" Bounds="254.491265733205,448.490819091797,225.899245857117,100.258254844724" />
+    <Link Source="@13" Target="(@1 @2 @3 Member=(Name=InsertRightEdge @15))" Category="CallStackDirectCall" Bounds="115.956723352659,448.490819091797,349.385456591884,101.400680031971" />
+    <Link Source="@13" Target="@14" Category="CallStackDirectCall" Bounds="386.482116800424,448.490819091797,108.370426309092,97.8768322997479" />
+    <Link Source="@13" Target="@27" Category="CallStackDirectCall" Bounds="509.119143241227,448.490819091797,2.20794934766337,94.9116347478076" />
+    <Link Source="@13" Target="@32" Category="CallStackDirectCall" Bounds="524.362914368224,448.490819091797,120.943791420251,98.2349221885451" />
+    <Link Source="@16" Target="(@1 @2 @3 Member=(Name=SetOwner OverloadingParameters=[(@1 @2 Type=OutRec),(@1 @2 Type=OutRec)]))" Category="CallStackDirectCall" Bounds="835.303859082149,649.454466503906,0.303892172047767,29.5632770203022" />
+    <Link Source="@19" Target="(Name=Clipper2Lib.ClipperBase.PopScanline @39 Type=bool OverloadingParameters=[(Type=long Name=y)] IsUnresolved=True)" Category="CallStackDirectCall" Bounds="1006.6192389575,356.190434570313,39.4544845772025,25.1609098550783" />
+    <Link Source="@19" Target="@11" Category="CallStackDirectCall" Bounds="1039.54914641279,356.190434570313,118.615245593,28.3943143993924" />
+    <Link Source="@19" Target="@12" Category="CallStackDirectCall" Bounds="930.617488357291,356.190434570313,47.1108308782165,65.321952965914" />
+    <Link Source="@19" Target="@13" Category="CallStackDirectCall" Bounds="583.018675868763,355.37730897593,342.66596920034,66.1671676364452" />
+    <Link Source="@21" Target="(@1 @2 @3 Member=(Name=BuildPath OverloadingParameters=[(@1 @2 Type=OutPt),@24,@24,(@1 @2 Type=Path64)]))" Category="CallStackDirectCall" Bounds="696.222687170241,322.294888567681,37.9122522015041,2.42102153693384" />
+    <Link Source="@25" Target="@26" Category="CallStackDirectCall" Bounds="1160.83001708984,245.710254601415,0,21.0001" />
+    <Link Source="@26" Target="@35" Category="CallStackDirectCall" Bounds="1160.82997994277,300.950354601415,2.32031509312947E-05,21.0001000000054" />
+    <Link Source="@28" Target="@33" Category="CallStackDirectCall" Bounds="1160.82996999861,135.230054601415,2.32031509312947E-05,21.0001000000055" />
+    <Link Source="@29" Target="@34" Category="CallStackDirectCall" Bounds="1006.59766506772,245.710254601415,24.9818329245799,23.7930853265014" />
+    <Link Source="@30" Target="@16" Category="CallStackDirectCall" Bounds="842.104781124437,594.214366503906,7.02008309114865,21.4466643490026" />
+    <Link Source="@30" Target="@23" Category="CallStackDirectCall" Bounds="876.997981919616,594.214366503906,108.773203869677,57.8175254740743" />
+    <Link Source="@31" Target="(@1 @2 @3 Member=(Name=SwapOutrecs @15))" Category="CallStackDirectCall" Bounds="1063.36830589074,522.400258178711,40.5724723053588,47.2146900433488" />
+    <Link Source="@31" Target="@23" Category="CallStackDirectCall" Bounds="1022.1788653425,522.400258178711,27.5635103518646,125.066760844475" />
+    <Link Source="@31" Target="@30" Category="CallStackDirectCall" Bounds="896.740327800354,522.400258178711,120.765718762591,43.5227128075771" />
+    <Link Source="@31" Target="@32" Category="CallStackDirectCall" Bounds="744.860902063229,518.392077103766,247.689466833255,35.566754746746" />
+    <Link Source="@32" Target="(@1 @2 @3 Member=(Name=SetSides OverloadingParameters=[(@1 @2 Type=OutRec),@4,@4]))" Category="CallStackDirectCall" Bounds="674.787451289316,577.640014444987,12.1940335134302,22.1185028164598" />
+    <Link Source="@32" Target="(@1 @2 @3 Member=NewOutRec)" Category="CallStackDirectCall" Bounds="603.064392089844,577.640014648438,43.2905883789063,25.4401245117188" />
+    <Link Source="@33" Target="@25" Category="CallStackDirectCall" Bounds="1160.83001708984,190.470154601415,0,21.0001" />
+    <Link Source="@33" Target="@29" Category="CallStackDirectCall" Bounds="1079.45674544216,190.470154601415,54.8722334526028,26.1305833029752" />
+    <Link Source="@34" Target="@19" Category="CallStackDirectCall" Bounds="986.829998516307,300.950354601415,1.1601575693021E-05,21.0001000000013" />
+    <Link Source="@34" Target="@21" Category="CallStackDirectCall" Bounds="839.410679961164,294.385270135097,107.32933712868,16.2102835058033" />
+    <Link Source="@35" Target="(@1 @2 Type=ClipperEngine Member=(Name=AddLocMin OverloadingParameters=[(@1 @2 Type=Vertex),(@1 @2 Type=PathType),@24,(@8 Namespace=System.Collections.Generic Type=(Name=List GenericParameterCount=1 GenericArguments=[(@1 @2 Type=LocalMinima)]))]))" Category="CallStackDirectCall" Bounds="1206.76503528318,356.190434570313,102.299381404503,28.1052784714466" />
+    <Link Source="@37" Target="@28" Category="CallStackDirectCall" Bounds="1160.82995605469,79.989954601415,0,21.0001" />
+    <Link Source="@38" Target="(@1 @2 @3 Member=(Name=EdgesAdjacentInAEL OverloadingParameters=[(@1 @2 Type=IntersectNode)]))" Category="CallStackDirectCall" Bounds="1218.10576843482,467.160008544922,0.458909612711977,21.0023973337309" />
+    <Link Source="@38" Target="(@1 @2 @3 Member=(Name=SwapPositionsInAEL @15))" Category="CallStackDirectCall" Bounds="1259.66830232956,467.160008544922,90.840571427025,27.4009320611639" />
+    <Link Source="@38" Target="@31" Category="CallStackDirectCall" Bounds="1098.82502926925,467.160008544922,81.2396680154957,27.1477804410686" />
+    <Link Source="@6" Target="@30" Category="CallStackDirectCall" Bounds="859.125393177157,514.588444824219,12.5982646298745,45.709441568271" />
+    <Link Source="@7" Target="@14" Category="CallStackDirectCall" Bounds="427.433818318463,492.956517333984,240.183192446081,57.3531683905557" />
+    <Link Source="@7" Target="@27" Category="CallStackDirectCall" Bounds="551.261460211411,492.956517333984,138.113271386501,56.058691202575" />
+  </Links>
+  <Categories>
+    <Category Id="CallStackDirectCall" Label="调用堆栈直接调用" CanBeDataDriven="True" CanLinkedNodesBeDataDriven="True" IncomingActionLabel="调用堆栈直接调用" OutgoingActionLabel="调用堆栈直接调用" />
+    <Category Id="CallStackEntry" Label="调用堆栈入口" CanBeDataDriven="True" IsProviderRoot="False" NavigationActionLabel="调用堆栈入口" />
+    <Category Id="CodeSchema_CallStackUnresolvedMethod" Label="未解析的方法" CanBeDataDriven="True" DefaultAction="Microsoft.AllOutBoundLinks" IsProviderRoot="False" NavigationActionLabel="未解析的方法" />
+    <Category Id="CodeSchema_Member" Label="编号" CanBeDataDriven="True" DefaultAction="Microsoft.Contains" Icon="CodeSchema_Field" NavigationActionLabel="成员" />
+    <Category Id="CodeSchema_Method" Label="方法" BasedOn="CodeSchema_Member" CanBeDataDriven="True" DefaultAction="Link:Forward:CodeSchema_Calls" Icon="CodeSchema_Method" NavigationActionLabel="方法" />
+    <Category Id="CodeSchema_SourceLocation" Label="源位置" Icon="File" />
+  </Categories>
+  <Properties>
+    <Property Id="Bounds" DataType="System.Windows.Rect" />
+    <Property Id="CanBeDataDriven" Label="CanBeDataDriven" Description="CanBeDataDriven" DataType="System.Boolean" />
+    <Property Id="CanLinkedNodesBeDataDriven" Label="CanLinkedNodesBeDataDriven" Description="CanLinkedNodesBeDataDriven" DataType="System.Boolean" />
+    <Property Id="CodeSchemaProperty_IsInternal" Label="是内部的" Description="一个标志，用于指示该方法是“内部”方法" DataType="System.Boolean" />
+    <Property Id="CodeSchemaProperty_IsPrivate" Label="是私有的" Description="一个标志，用于指示该范围是“私有”范围" DataType="System.Boolean" />
+    <Property Id="CodeSchemaProperty_IsProtected" Label="是受保护的" Description="一个标志，用于指示该范围是“受保护”范围" DataType="System.Boolean" />
+    <Property Id="CodeSchemaProperty_IsPublic" Label="是公共的" Description="一个标志，用于指示该范围是“公共”范围" DataType="System.Boolean" />
+    <Property Id="CodeSchemaProperty_IsStatic" Label="是静态的" Description="一个标志，用于指示该成员是静态成员" DataType="System.Boolean" />
+    <Property Id="CommonLabel" DataType="System.String" />
+    <Property Id="DataVirtualized" Label="已虚拟化数据" Description="如果为 true，则图中可以包含表示虚拟化节点/链接(即，不在图中实际创建)的数据的节点和链接。" DataType="System.Boolean" />
+    <Property Id="DefaultAction" Label="DefaultAction" Description="DefaultAction" DataType="System.String" />
+    <Property Id="Expression" DataType="System.String" />
+    <Property Id="GroupLabel" DataType="System.String" />
+    <Property Id="Icon" Label="图标" DataType="System.String" />
+    <Property Id="IncomingActionLabel" Label="IncomingActionLabel" Description="IncomingActionLabel" DataType="System.String" />
+    <Property Id="IsEnabled" DataType="System.Boolean" />
+    <Property Id="IsProviderRoot" Label="IsProviderRoot" Description="IsProviderRoot" DataType="System.Boolean" />
+    <Property Id="Label" Label="标签" Description="可批注对象的可显示标签" DataType="System.String" />
+    <Property Id="Layout" DataType="System.String" />
+    <Property Id="NavigationActionLabel" Label="NavigationActionLabel" Description="NavigationActionLabel" DataType="System.String" />
+    <Property Id="OutgoingActionLabel" Label="OutgoingActionLabel" Description="OutgoingActionLabel" DataType="System.String" />
+    <Property Id="SourceLocation" Label="起始行号" DataType="Microsoft.VisualStudio.GraphModel.CodeSchema.SourceLocation" />
+    <Property Id="TargetType" DataType="System.Type" />
+    <Property Id="UseManualLocation" DataType="System.Boolean" />
+    <Property Id="Value" DataType="System.String" />
+    <Property Id="ValueLabel" DataType="System.String" />
+    <Property Id="Visibility" Label="Visibility" Description="Defines whether a node in the graph is visible or not" DataType="System.Windows.Visibility" />
+  </Properties>
+  <QualifiedNames>
+    <Name Id="Assembly" Label="程序集" ValueType="Uri" />
+    <Name Id="GenericArguments" Label="泛型实参" ValueType="Microsoft.VisualStudio.GraphModel.GraphNodeIdCollection" />
+    <Name Id="GenericParameterCount" Label="泛型形参计数" ValueType="System.String" />
+    <Name Id="IsUnresolved" Label="是无法解析的" ValueType="System.String" />
+    <Name Id="Member" Label="编号" ValueType="System.Object" />
+    <Name Id="Name" Label="名称" ValueType="System.String" />
+    <Name Id="Namespace" Label="命名空间" ValueType="System.String" />
+    <Name Id="OverloadingParameters" Label="参数" ValueType="Microsoft.VisualStudio.GraphModel.GraphNodeIdCollection" Formatter="NameValueNoEscape" />
+    <Name Id="Type" Label="类型" ValueType="System.Object" />
+  </QualifiedNames>
+  <IdentifierAliases>
+    <Alias n="1" Uri="Assembly=$(4ce00b81-f1b2-4012-9bbd-b0db6bf8cad3.OutputPathUri)" />
+    <Alias n="2" Id="Namespace=Clipper2Lib" />
+    <Alias n="3" Id="Type=ClipperBase" />
+    <Alias n="4" Id="(@1 @2 Type=Active)" />
+    <Alias n="5" Id="OverloadingParameters=[@4]" />
+    <Alias n="6" Id="(@1 @2 @3 Member=(Name=DoMaxima @5))" />
+    <Alias n="7" Id="(@1 @2 @3 Member=(Name=UpdateEdgeIntoAEL @5))" />
+    <Alias n="8" Uri="Assembly=file:///C:/Users/89402/.nuget/packages/netstandard.library/2.0.3/build/netstandard2.0/ref/netstandard.dll" />
+    <Alias n="9" Id="OverloadingParameters=[(@8 Namespace=System Type=Int64)]" />
+    <Alias n="10" Id="(@1 @2 @3 Member=(Name=BuildIntersectList @9))" />
+    <Alias n="11" Id="(@1 @2 @3 Member=(Name=DoIntersections @9))" />
+    <Alias n="12" Id="(@1 @2 @3 Member=(Name=DoTopOfScanbeam @9))" />
+    <Alias n="13" Id="(@1 @2 @3 Member=(Name=InsertLocalMinimaIntoAEL @9))" />
+    <Alias n="14" Id="(@1 @2 @3 Member=(Name=InsertScanline @9))" />
+    <Alias n="15" Id="OverloadingParameters=[@4,@4]" />
+    <Alias n="16" Id="(@1 @2 @3 Member=(Name=JoinOutrecPaths @15))" />
+    <Alias n="17" Id="(@1 @2 Type=ClipType)" />
+    <Alias n="18" Id="(@1 @2 Type=FillRule)" />
+    <Alias n="19" Id="(@1 @2 @3 Member=(Name=ExecuteInternal OverloadingParameters=[@17,@18]))" />
+    <Alias n="20" Id="(@1 @2 Type=Paths64)" />
+    <Alias n="21" Id="(@1 @2 @3 Member=(Name=BuildPaths OverloadingParameters=[@20,@20]))" />
+    <Alias n="22" Id="(@1 @2 Type=Point64)" />
+    <Alias n="23" Id="(@1 @2 @3 Member=(Name=AddOutPt OverloadingParameters=[@4,@22]))" />
+    <Alias n="24" Id="(@8 Namespace=System Type=Boolean)" />
+    <Alias n="25" Id="(@1 @2 Type=Clipper64 Member=(Name=AddPaths OverloadingParameters=[@20,(@1 @2 Type=PathType),@24]))" />
+    <Alias n="26" Id="(@1 @2 @3 Member=(Name=AddPaths OverloadingParameters=[@20,(@1 @2 Type=PathType),@24]))" />
+    <Alias n="27" Id="(@1 @2 @3 Member=(Name=CheckJoinLeft OverloadingParameters=[@4,@22,@24]))" />
+    <Alias n="28" Id="(@1 @2 Type=Clipper Member=(Name=Difference OverloadingParameters=[@20,@20,@18]))" />
+    <Alias n="29" Id="(@1 @2 Type=Clipper64 Member=(Name=Execute OverloadingParameters=[@17,@18,@20]))" />
+    <Alias n="30" Id="(@1 @2 @3 Member=(Name=AddLocalMaxPoly OverloadingParameters=[@4,@4,@22]))" />
+    <Alias n="31" Id="(@1 @2 @3 Member=(Name=IntersectEdges OverloadingParameters=[@4,@4,@22]))" />
+    <Alias n="32" Id="(@1 @2 @3 Member=(Name=AddLocalMinPoly OverloadingParameters=[@4,@4,@22,@24]))" />
+    <Alias n="33" Id="(@1 @2 Type=Clipper Member=(Name=BooleanOp OverloadingParameters=[@17,@20,@20,@18]))" />
+    <Alias n="34" Id="(@1 @2 Type=Clipper64 Member=(Name=Execute OverloadingParameters=[@17,@18,@20,@20]))" />
+    <Alias n="35" Id="(@1 @2 Type=ClipperEngine Member=(Name=AddPathsToVertexList OverloadingParameters=[@20,(@1 @2 Type=PathType),@24,(@8 Namespace=System.Collections.Generic Type=(Name=List GenericParameterCount=1 GenericArguments=[(@1 @2 Type=LocalMinima)])),(@8 Namespace=System.Collections.Generic Type=(Name=List GenericParameterCount=1 GenericArguments=[(@1 @2 Type=Vertex)]))]))" />
+    <Alias n="36" Uri="Assembly=$(db7b56ed-474f-49a7-91f1-75eeb76a8b2b.OutputPathUri)" />
+    <Alias n="37" Id="(@36 Namespace=ClipperDemo1 Type=Application Member=DoSimpleClipperOffset4)" />
+    <Alias n="38" Id="(@1 @2 @3 Member=ProcessIntersectList)" />
+    <Alias n="39" Uri="Assembly=Clipper2Lib.dll" />
+  </IdentifierAliases>
+  <Styles>
+    <Style TargetType="Link" GroupLabel="Current Call Stack Link" ValueLabel="True" Visibility="Hidden">
+      <Condition Expression="HasCategory('CurrentCallStackCall')" />
+      <Setter Property="Stroke" Value="#FFD93701" />
+      <Setter Property="Weight" Value="1" />
+    </Style>
+    <Style TargetType="Link" GroupLabel="Call Stack Indirect Link" ValueLabel="True" Visibility="Hidden">
+      <Condition Expression="HasCategory('CallStackIndirectCall')" />
+      <Setter Property="Stroke" Value="#FFB8B8B8" />
+      <Setter Property="StrokeDashArray" Value="4 1" />
+    </Style>
+    <Style TargetType="Link" GroupLabel="Call Stack Direct Link" ValueLabel="True" Visibility="Hidden">
+      <Condition Expression="HasCategory('CallStackDirectCall')" />
+      <Setter Property="Stroke" Value="#FFB8B8B8" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="当前调用堆栈(无源)" ValueLabel="True">
+      <Condition Expression="HasCategory('CurrentCallStackEntry') And !HasCategory('CodeSchema_SourceLocation')" />
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="Foreground" Value="#FFA5A5A5" />
+      <Setter Property="Stroke" Value="#FF0072C6" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="External And Current" ValueLabel="True" Visibility="Hidden">
+      <Condition Expression="HasCategory('ExternalCallStackEntry') And HasCategory('CurrentCallStackEntry')" />
+      <Setter Property="Background" Value="#FFFFF8F0" />
+      <Setter Property="Stroke" Value="#FFCE5100" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="当前调用堆栈(源)" ValueLabel="True">
+      <Condition Expression="HasCategory('CurrentCallStackEntry') And !HasCategory('QueryResult')" />
+      <Setter Property="Background" Value="#FFFFE3C6" />
+      <Setter Property="Stroke" Value="#FFD93701" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="外部调用堆栈" ValueLabel="True">
+      <Condition Expression="HasCategory('ExternalCallStackEntry')" />
+      <Setter Property="Background" Value="#FFF7F7F7" />
+      <Setter Property="StrokeDashArray" Value="1 3" />
+      <Setter Property="Foreground" Value="#FF717171" />
+      <Setter Property="Stroke" Value="#FFA5A5A5" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="结果" ValueLabel="True">
+      <Condition Expression="HasCategory('QueryResult')" />
+      <Setter Property="Background" Value="#FFBCFFBE" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="测试项目" ValueLabel="测试项目">
+      <Condition Expression="HasCategory('CodeMap_TestProject')" />
+      <Setter Property="Icon" Value="CodeMap_TestProject" />
+      <Setter Property="Background" Value="#FF307A69" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Web 项目" ValueLabel="Web 项目">
+      <Condition Expression="HasCategory('CodeMap_WebProject')" />
+      <Setter Property="Icon" Value="CodeMap_WebProject" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Windows 应用商店项目" ValueLabel="Windows 应用商店项目">
+      <Condition Expression="HasCategory('CodeMap_WindowsStoreProject')" />
+      <Setter Property="Icon" Value="CodeMap_WindowsStoreProject" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="电话项目" ValueLabel="电话项目">
+      <Condition Expression="HasCategory('CodeMap_PhoneProject')" />
+      <Setter Property="Icon" Value="CodeMap_PhoneProject" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="可移植库" ValueLabel="可移植库">
+      <Condition Expression="HasCategory('CodeMap_PortableLibraryProject')" />
+      <Setter Property="Icon" Value="CodeMap_PortableLibraryProject" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="WPF 项目" ValueLabel="WPF 项目">
+      <Condition Expression="HasCategory('CodeMap_WpfProject')" />
+      <Setter Property="Icon" Value="CodeMap_WpfProject" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="VSIX 项目" ValueLabel="VSIX 项目">
+      <Condition Expression="HasCategory('CodeMap_VsixProject')" />
+      <Setter Property="Icon" Value="CodeMap_VsixProject" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="建模项目" ValueLabel="建模项目">
+      <Condition Expression="HasCategory('CodeMap_ModelingProject')" />
+      <Setter Property="Icon" Value="CodeMap_ModelingProject" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="程序集" ValueLabel="具有类别">
+      <Condition Expression="HasCategory('CodeSchema_Assembly')" />
+      <Setter Property="Background" Value="#FF094167" />
+      <Setter Property="Stroke" Value="#FF094167" />
+      <Setter Property="Icon" Value="CodeSchema_Assembly" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="命名空间" ValueLabel="具有类别">
+      <Condition Expression="HasCategory('CodeSchema_Namespace')" />
+      <Setter Property="Background" Value="#FF0E619A" />
+      <Setter Property="Stroke" Value="#FF0E619A" />
+      <Setter Property="Icon" Value="CodeSchema_Namespace" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="接口" ValueLabel="具有类别">
+      <Condition Expression="HasCategory('CodeSchema_Interface')" />
+      <Setter Property="Background" Value="#FF1382CE" />
+      <Setter Property="Stroke" Value="#FF1382CE" />
+      <Setter Property="Icon" Value="CodeSchema_Interface" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="结构" ValueLabel="具有类别">
+      <Condition Expression="HasCategory('CodeSchema_Struct')" />
+      <Setter Property="Background" Value="#FF1382CE" />
+      <Setter Property="Stroke" Value="#FF1382CE" />
+      <Setter Property="Icon" Value="CodeSchema_Struct" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="枚举" ValueLabel="具有类别">
+      <Condition Expression="HasCategory('CodeSchema_Enum')" />
+      <Setter Property="Background" Value="#FF1382CE" />
+      <Setter Property="Stroke" Value="#FF1382CE" />
+      <Setter Property="Icon" Value="CodeSchema_Enum" />
+      <Setter Property="LayoutSettings" Value="List" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="委托" ValueLabel="具有类别">
+      <Condition Expression="HasCategory('CodeSchema_Delegate')" />
+      <Setter Property="Background" Value="#FF1382CE" />
+      <Setter Property="Stroke" Value="#FF1382CE" />
+      <Setter Property="Icon" Value="CodeSchema_Delegate" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="类" ValueLabel="具有类别">
+      <Condition Expression="HasCategory('CodeSchema_Type')" />
+      <Setter Property="Background" Value="#FF0E70C0" />
+      <Setter Property="Stroke" Value="#FF0E70C0" />
+      <Setter Property="Icon" Value="CodeSchema_Class" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="属性" ValueLabel="具有类别">
+      <Condition Expression="HasCategory('CodeSchema_Property')" />
+      <Setter Property="Background" Value="#FFE0E0E0" />
+      <Setter Property="Stroke" Value="#FFE0E0E0" />
+      <Setter Property="Icon" Value="CodeSchema_Property" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="方法" ValueLabel="具有类别">
+      <Condition Expression="HasCategory('CodeSchema_Method') Or HasCategory('CodeSchema_CallStackUnresolvedMethod')" />
+      <Setter Property="Background" Value="#FFE0E0E0" />
+      <Setter Property="Stroke" Value="#FFE0E0E0" />
+      <Setter Property="Icon" Value="CodeSchema_Method" />
+      <Setter Property="LayoutSettings" Value="List" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="事件" ValueLabel="具有类别">
+      <Condition Expression="HasCategory('CodeSchema_Event')" />
+      <Setter Property="Background" Value="#FFE0E0E0" />
+      <Setter Property="Stroke" Value="#FFE0E0E0" />
+      <Setter Property="Icon" Value="CodeSchema_Event" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="字段" ValueLabel="具有类别">
+      <Condition Expression="HasCategory('CodeSchema_Field')" />
+      <Setter Property="Background" Value="#FFE0E0E0" />
+      <Setter Property="Stroke" Value="#FFE0E0E0" />
+      <Setter Property="Icon" Value="CodeSchema_Field" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Out 参数" ValueLabel="具有类别">
+      <Condition Expression="CodeSchemaProperty_IsOut = 'True'" />
+      <Setter Property="Icon" Value="CodeSchema_OutParameter" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="参数" ValueLabel="具有类别">
+      <Condition Expression="HasCategory('CodeSchema_Parameter')" />
+      <Setter Property="Icon" Value="CodeSchema_Parameter" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="局部变量" ValueLabel="具有类别">
+      <Condition Expression="HasCategory('CodeSchema_LocalExpression')" />
+      <Setter Property="Icon" Value="CodeSchema_LocalExpression" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="外部" ValueLabel="具有类别">
+      <Condition Expression="HasCategory('Externals')" />
+      <Setter Property="Background" Value="#FF424242" />
+      <Setter Property="Stroke" Value="#FF424242" />
+    </Style>
+    <Style TargetType="Link" GroupLabel="继承自" ValueLabel="True">
+      <Condition Expression="HasCategory('InheritsFrom')" />
+      <Setter Property="Stroke" Value="#FF00A600" />
+      <Setter Property="StrokeDashArray" Value="2 0" />
+      <Setter Property="DrawArrow" Value="true" />
+    </Style>
+    <Style TargetType="Link" GroupLabel="实现" ValueLabel="True">
+      <Condition Expression="HasCategory('Implements')" />
+      <Setter Property="Stroke" Value="#8000A600" />
+      <Setter Property="StrokeDashArray" Value="2 2" />
+      <Setter Property="DrawArrow" Value="true" />
+    </Style>
+    <Style TargetType="Link" GroupLabel="调用" ValueLabel="True">
+      <Condition Expression="HasCategory('CodeSchema_Calls')" />
+      <Setter Property="Stroke" Value="#FFFF00FF" />
+      <Setter Property="StrokeDashArray" Value="2 0" />
+      <Setter Property="DrawArrow" Value="true" />
+    </Style>
+    <Style TargetType="Link" GroupLabel="函数指针" ValueLabel="True">
+      <Condition Expression="HasCategory('CodeSchema_FunctionPointer')" />
+      <Setter Property="Stroke" Value="#FFFF00FF" />
+      <Setter Property="StrokeDashArray" Value="2 2" />
+      <Setter Property="DrawArrow" Value="true" />
+    </Style>
+    <Style TargetType="Link" GroupLabel="字段读取" ValueLabel="True">
+      <Condition Expression="HasCategory('CodeSchema_FieldRead')" />
+      <Setter Property="Stroke" Value="#FF00AEEF" />
+      <Setter Property="StrokeDashArray" Value="2 2" />
+      <Setter Property="DrawArrow" Value="true" />
+    </Style>
+    <Style TargetType="Link" GroupLabel="字段写入" ValueLabel="True">
+      <Condition Expression="HasCategory('CodeSchema_FieldWrite')" />
+      <Setter Property="Stroke" Value="#FF00AEEF" />
+      <Setter Property="DrawArrow" Value="true" />
+      <Setter Property="IsHidden" Value="false" />
+    </Style>
+    <Style TargetType="Link" GroupLabel="Inherits From" ValueLabel="True" Visibility="Hidden">
+      <Condition Expression="HasCategory('InheritsFrom') And Target.HasCategory('CodeSchema_Class')" />
+      <Setter Property="TargetDecorator" Value="OpenArrow" />
+    </Style>
+    <Style TargetType="Link" GroupLabel="Implements" ValueLabel="True" Visibility="Hidden">
+      <Condition Expression="HasCategory('Implements') And Target.HasCategory('CodeSchema_Interface')" />
+      <Setter Property="TargetDecorator" Value="OpenArrow" />
+    </Style>
+    <Style TargetType="Link" GroupLabel="Comment Link" ValueLabel="True" Visibility="Hidden">
+      <Condition Expression="Source.HasCategory('Comment')" />
+      <Setter Property="Stroke" Value="#FFE5C365" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Cursor Location Changed" ValueLabel="True" Visibility="Hidden">
+      <Condition Expression="IsCursorLocation" />
+      <Setter Property="IndicatorWest" Value="WestIndicator" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Disabled Breakpoint Location Changed" ValueLabel="True" Visibility="Hidden">
+      <Condition Expression="DisabledBreakpointCount" />
+      <Setter Property="IndicatorWest" Value="WestIndicator" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Enabled Breakpoint Location Changed" ValueLabel="True" Visibility="Hidden">
+      <Condition Expression="EnabledBreakpointCount" />
+      <Setter Property="IndicatorWest" Value="WestIndicator" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Instruction Pointer Location Changed" ValueLabel="True" Visibility="Hidden">
+      <Condition Expression="IsInstructionPointerLocation" />
+      <Setter Property="IndicatorWest" Value="WestIndicator" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Current Callstack Changed" ValueLabel="True" Visibility="Hidden">
+      <Condition Expression="IsCurrentCallstackFrame" />
+      <Setter Property="IndicatorWest" Value="WestIndicator" />
+    </Style>
+    <Style TargetType="Link" GroupLabel="返回" ValueLabel="True" Visibility="Hidden">
+      <Condition Expression="HasCategory('CodeSchema_ReturnTypeLink')" />
+    </Style>
+    <Style TargetType="Link" GroupLabel="引用" ValueLabel="True" Visibility="Hidden">
+      <Condition Expression="HasCategory('References')" />
+    </Style>
+    <Style TargetType="Link" GroupLabel="使用特性" ValueLabel="True" Visibility="Hidden">
+      <Condition Expression="HasCategory('CodeSchema_AttributeUse')" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="解决方案文件夹" ValueLabel="True" Visibility="Hidden">
+      <Condition Expression="HasCategory('CodeMap_SolutionFolder')" />
+      <Setter Property="Background" Value="#FFDEBA83" />
+    </Style>
+    <Style TargetType="Link" GroupLabel="项目引用" ValueLabel="项目引用">
+      <Condition Expression="HasCategory('CodeMap_ProjectReference')" />
+      <Setter Property="Stroke" Value="#9A9A9A" />
+      <Setter Property="StrokeDashArray" Value="2 2" />
+      <Setter Property="DrawArrow" Value="true" />
+    </Style>
+    <Style TargetType="Link" GroupLabel="外部引用" ValueLabel="外部引用">
+      <Condition Expression="HasCategory('CodeMap_ExternalReference')" />
+      <Setter Property="Stroke" Value="#9A9A9A" />
+      <Setter Property="StrokeDashArray" Value="2 2" />
+      <Setter Property="DrawArrow" Value="true" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="注释" ValueLabel="包含注释">
+      <Condition Expression="HasCategory('Comment')" />
+      <Setter Property="Background" Value="#FFFFFACD" />
+      <Setter Property="Stroke" Value="#FFE5C365" />
+      <Setter Property="StrokeThickness" Value="1" />
+      <Setter Property="NodeRadius" Value="2" />
+      <Setter Property="MaxWidth" Value="250" />
+    </Style>
+  </Styles>
+  <Paths>
+    <Path Id="4ce00b81-f1b2-4012-9bbd-b0db6bf8cad3.OutputPathUri" Value="file:///E:/projs_test/Clipper2/CSharp/Clipper2Lib/bin/Debug/netstandard2.0/Clipper2Lib.dll" />
+    <Path Id="db7b56ed-474f-49a7-91f1-75eeb76a8b2b.OutputPathUri" Value="file:///E:/projs_test/Clipper2/CSharp/Clipper2Lib.Examples/InflateDemo/bin/Debug/net6.0/InflateDemo.dll" />
+  </Paths>
+</DirectedGraph>
