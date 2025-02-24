@@ -55,6 +55,21 @@ namespace Clipper2Lib
       next = null;
       this.prev = prev;
     }
+
+    public override string ToString()
+    {
+      string result = "Vertex:";
+      result += "pt:" + pt.ToString() + " flags:" + flags;
+      if (prev != null)
+      {
+        result += " prev:" + prev.pt.ToString();
+      }
+      if (next != null)
+      {
+        result += " next:" + next.pt.ToString();
+      }
+      return result;
+    }
   }
 
   internal readonly struct LocalMinima
@@ -138,14 +153,14 @@ namespace Clipper2Lib
     {
       int cnt = 1;
       OutPt op = this;
-      string result = $"OutPt pt:"+op.pt;
+      string result = $"OutPt 0:pt:" + op.pt.ToString();
       OutPt cur = this.next!;
       while (cur != op)
       {
-        result += " numb:" + cnt + " pt:" + cur.pt.ToString();
-        cnt ++;
+        result += " "+cnt + ":" + cur.pt.ToString();
+        cnt++;
         cur = cur.next!;
-        Console.WriteLine(result);
+        //Console.WriteLine(result);
       }
       
       return result;
@@ -170,6 +185,38 @@ namespace Clipper2Lib
     public bool isOpen;
     public List<int>? splits;//?????
     public OutRec? recursiveSplit;//????
+
+    public string ToString()
+    {
+      string result = $">>>>OutRec idx:" + idx;
+      if(pts != null)
+      {
+        //result += " >pts.pt:" + pts.pt.ToString();
+        result += " >pts:" + pts.ToString();
+      }
+      if(frontEdge != null)
+      {
+        result += " >frontEdge:" + frontEdge.ToString();
+      }
+      if (backEdge != null)
+      {
+        result += " >backEdge:" + backEdge.ToString();
+      }
+      if (owner != null)
+      {
+        if (owner.frontEdge != null)
+        {
+          result += " >owner.frontEdge:" + owner.frontEdge.ToString();
+        }
+        if (owner.backEdge != null)
+        {
+          result += " >owner.backEdge:" + owner.backEdge.ToString();
+        }
+      }
+      
+      result += "<<<<OutRec";
+      return result;
+    }
   }
 
   internal class HorzSegment
@@ -216,14 +263,14 @@ namespace Clipper2Lib
     //     a linked list of all edges (from left to right) that are present
     //     (or 'active') within the current scanbeam (a horizontal 'beam' that
     //     sweeps from bottom to top over the paths in the clipping operation).
-    public Active? prevInAEL;//AEL双向链表
+    public Active? prevInAEL;//AEL双向链表 Active Edge Tabl, Active Edge List
     public Active? nextInAEL;//AEL双向链表
 
     // SEL: 'sorted edge list' (Vatti's ST - sorted table)
     //     linked list used when sorting edges into their new positions at the
     //     top of scanbeams, but also (re)used to process horizontals.
     public Active? prevInSEL;//SEL双向链表
-    public Active? nextInSEL;//SEL双向链表
+    public Active? nextInSEL;//SEL双向链表 sorted edge table,sorted edge list
     public Active? jump;//????????
     public Vertex? vertexTop;// 下一个top，搜索使用的地方就知道了
     public LocalMinima localMin; // the bottom of an edge 'bound' (also Vatti)
@@ -232,10 +279,11 @@ namespace Clipper2Lib
 
     public string ToString()
     {
-      string result = $"Active bot:" + bot.ToString();
-      result += "top:" + top.ToString() + " curX:" + curX + " vertexTop:" + vertexTop.pt;
+      string result = $"Active:" + bot.ToString();
+      //result += " top:" + top.ToString() + " curX:" + curX/100;// + " vertexTop:" + vertexTop.pt;
+      result += "->" + top.ToString();// + " curX:" + curX / 100;// + " vertexTop:" + vertexTop.pt;
 
-      return result + '\n';
+      return result;
     }
   }
 
@@ -249,6 +297,7 @@ namespace Clipper2Lib
       vert.flags |= VertexFlags.LocalMin;
 
       LocalMinima lm = new LocalMinima(vert, polytype, isOpen);
+      Console.WriteLine("AddLocMin vert: " + vert.ToString() + " polytype:"+ polytype);
       minimaList.Add(lm);
     }
 
@@ -574,7 +623,19 @@ namespace Clipper2Lib
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static Vertex NextVertex(Active ae)
     {
+      Console.WriteLine("NextVertex ae.windDx:" + ae.windDx);
       return ae.windDx > 0 ? ae.vertexTop!.next! : ae.vertexTop!.prev!;
+      //if (ae.windDx > 0)
+      //{
+      //  Console.WriteLine("NextVertex ae.windDx:" + ae.windDx + " ae.vertexTop!.next!:"+ ae.vertexTop!.next!);
+      //  return ae.vertexTop!.next!;
+      //}
+      //else
+      //{
+      //  Console.WriteLine("NextVertex ae.windDx:" + ae.windDx + " ae.vertexTop!.prev!:" + ae.vertexTop!.prev!);
+      //  return ae.vertexTop!.prev!;
+      //}
+
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -809,7 +870,7 @@ namespace Clipper2Lib
 
       _scanlineList.EnsureCapacity(_minimaList.Count);
       for (int i = _minimaList.Count - 1; i >= 0; i--)
-        _scanlineList.Add(_minimaList[i].vertex.pt.Y);
+        _scanlineList.Add(_minimaList[i].vertex.pt.Y); //!!!!!
 
       _currentBotY = 0;
       _currentLocMin = 0;
@@ -899,6 +960,7 @@ namespace Clipper2Lib
       _isSortedMinimaList = false;
       foreach (LocalMinima lm in reuseableData._minimaList)
       {
+        Console.WriteLine("AddReuseableData _minimaList.Add");
         _minimaList.Add(new LocalMinima(lm.vertex, lm.polytype, lm.isOpen));
         if (lm.isOpen) _hasOpenPaths = true;
       }
@@ -1144,6 +1206,7 @@ namespace Clipper2Lib
         ae.prevInAEL = null;
         ae.nextInAEL = null;
         _actives = ae;
+        Console.WriteLine("InsertLeftEdge 1; ae:" + ae.ToString() + " ae.prevInAEL = null; ae.nextInAEL = null");
       }
       else if (!IsValidAelOrder(_actives, ae))
       {
@@ -1151,6 +1214,7 @@ namespace Clipper2Lib
         ae.nextInAEL = _actives;
         _actives.prevInAEL = ae;
         _actives = ae;
+        Console.WriteLine("InsertLeftEdge 2 ae:" + ae.ToString() + " ae.prevInAEL=null; ae.nextInAEL:" + ae.nextInAEL.ToString());
       }
       else
       {
@@ -1163,7 +1227,9 @@ namespace Clipper2Lib
         if (ae2.nextInAEL != null) ae2.nextInAEL.prevInAEL = ae;
         ae.prevInAEL = ae2;
         ae2.nextInAEL = ae;
+        Console.WriteLine("InsertLeftEdge 3 ae:" + ae.ToString() + " ae.prevInAEL:" + ae.prevInAEL.ToString() + " ae.nextInAEL:" + ae.nextInAEL.ToString());
       }
+
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1173,10 +1239,13 @@ namespace Clipper2Lib
       if (ae.nextInAEL != null) ae.nextInAEL.prevInAEL = ae2;
       ae2.prevInAEL = ae;
       ae.nextInAEL = ae2;
+      Console.WriteLine("InsertRightEdge ae.nextInAEL=ae2:" + ae.nextInAEL.ToString() + "ae2.prevInAEL=ae:" + ae2.prevInAEL.ToString());
     }
 
     private void InsertLocalMinimaIntoAEL(long botY)
     {
+      //Console.WriteLine("InsertLocalMinimaIntoAEL botY:" + botY/100);
+      LogHelper.Blue("InsertLocalMinimaIntoAEL botY:" + botY/100);
       // Add any local minima (if any) at BotY ...
       // NB horizontal local minima edges should contain locMin.vertex.prev
       while (HasLocMinAtY(botY))
@@ -1200,6 +1269,7 @@ namespace Clipper2Lib
             localMin = localMinima
           };
           SetDx(leftBound);
+          Console.WriteLine("InsertLocalMinimaIntoAEL new leftBound:" + leftBound.ToString());
         }
 
         Active? rightBound;
@@ -1220,6 +1290,7 @@ namespace Clipper2Lib
             localMin = localMinima
           };
           SetDx(rightBound);
+          Console.WriteLine("InsertLocalMinimaIntoAEL new rightBound:" + rightBound.ToString());
         }
 
         // Currently LeftB is just the descending bound and RightB is the ascending.
@@ -1235,7 +1306,10 @@ namespace Clipper2Lib
             if (IsHeadingLeftHorz(rightBound)) SwapActives(ref leftBound, ref rightBound);
           }
           else if (leftBound.dx < rightBound.dx)
+          {
             SwapActives(ref leftBound, ref rightBound);
+            Console.WriteLine("InsertLocalMinimaIntoAEL SwapActives");
+          }
           //so when leftBound has windDx == 1, the polygon will be oriented
           //counter-clockwise in Cartesian coords (clockwise with inverted Y).
         }
@@ -1360,6 +1434,7 @@ namespace Clipper2Lib
 
       OutPt op = new OutPt(pt, outrec);//!!!!!
       outrec.pts = op;//!!!!!
+      //Console.WriteLine("AddLocalMinPoly new outrec:" + outrec.ToString());
       return op;
     }
 
@@ -1471,7 +1546,7 @@ namespace Clipper2Lib
 
       // Outrec.OutPts: a circular doubly-linked-list of POutPt where ...
       // opFront[.Prev]* ~~~> opBack & opBack == opFront.Next
-      OutRec outrec = ae.outrec!;
+      OutRec outrec = ae.outrec!;// !!!_outreclist
       bool toFront = IsFront(ae);
       OutPt opFront = outrec.pts!;
       OutPt opBack = opFront.next!;
@@ -1489,7 +1564,19 @@ namespace Clipper2Lib
       newOp.prev = opFront;
       newOp.next = opBack;
       opFront.next = newOp;
-      if (toFront) outrec.pts = newOp;////!!!!! _outrecList
+      if (toFront)
+      {
+        Console.WriteLine("AddOutPt toFront");
+        outrec.pts = newOp;
+      }else
+      {
+        Console.WriteLine("AddOutPt !!!!　toFront");
+      }
+
+      Console.WriteLine("AddOutPt BEGIN>>>>> ae:" + ae.ToString() + " pt:" + pt.ToString() );
+      Console.WriteLine("AddOutPt outrec:" + outrec.ToString() );
+      Console.WriteLine("AddOutPt END<<<<<");
+
       return newOp;
     }
 
@@ -1537,7 +1624,7 @@ namespace Clipper2Lib
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private void UpdateEdgeIntoAEL(Active ae)
+    private void UpdateEdgeIntoAEL(Active ae)//!!!!!
     {
       ae.bot = ae.top;
       ae.vertexTop = NextVertex(ae);
@@ -1545,8 +1632,11 @@ namespace Clipper2Lib
       ae.curX = ae.bot.X;
       SetDx(ae);
 
-      if (IsJoined(ae)) Split(ae, ae.bot);
-
+      if (IsJoined(ae))
+      {
+        Console.WriteLine("UpdateEdgeIntoAEL IsJoined(ae) Split");
+        Split(ae, ae.bot);
+      }
       if (IsHorizontal(ae)) 
       {
         if (!IsOpen(ae)) TrimHorz(ae, PreserveCollinear);
@@ -1719,6 +1809,7 @@ namespace Clipper2Lib
         if ((oldE1WindCount != 0 && oldE1WindCount != 1) || (oldE2WindCount != 0 && oldE2WindCount != 1) ||
             (ae1.localMin.polytype != ae2.localMin.polytype && _cliptype != ClipType.Xor))
         {
+          Console.WriteLine("IntersectEdges AddLocalMaxPoly 1");
           resultOp = AddLocalMaxPoly(ae1, ae2, pt);
 #if USINGZ
           if (resultOp != null)
@@ -1730,6 +1821,7 @@ namespace Clipper2Lib
           // this 'else if' condition isn't strictly needed but
           // it's sensible to split polygons that only touch at
           // a common vertex (not at common edges).
+          Console.WriteLine("IntersectEdges AddLocalMaxPoly 2");
           resultOp = AddLocalMaxPoly(ae1, ae2, pt);
 #if USINGZ
           OutPt op2 = AddLocalMinPoly(ae1, ae2, pt);
@@ -1742,6 +1834,7 @@ namespace Clipper2Lib
         }
         else
         {
+          Console.WriteLine("IntersectEdges AddOutPt SwapOutrecs");
           // can't treat as maxima & minima
           resultOp = AddOutPt(ae1, pt);
 #if USINGZ
@@ -1763,9 +1856,11 @@ namespace Clipper2Lib
         SetZ(ae1, ae2, ref resultOp.pt);
 #endif
         SwapOutrecs(ae1, ae2);
+        Console.WriteLine("IntersectEdges IsHotEdge(ae1) AddOutPt SwapOutrecs");
       }
       else if (IsHotEdge(ae2))
       {
+        Console.WriteLine("IntersectEdges IsHotEdge(ae2) AddOutPt SwapOutrecs");
         resultOp = AddOutPt(ae2, pt);
 #if USINGZ
         SetZ(ae1, ae2, ref resultOp.pt);
@@ -1795,6 +1890,7 @@ namespace Clipper2Lib
 
         if (!IsSamePolyType(ae1, ae2))
         {
+          Console.WriteLine("IntersectEdges  no HotEdge !SamePolyType AddLocalMinPoly");
           resultOp = AddLocalMinPoly(ae1, ae2, pt);
 #if USINGZ
           SetZ(ae1, ae2, ref resultOp.pt);
@@ -1825,6 +1921,7 @@ namespace Clipper2Lib
 
             default: // ClipType.Intersection:
               if (e1Wc2 <= 0 || e2Wc2 <= 0) return;
+              Console.WriteLine("IntersectEdges  no HotEdge SamePolyType intersection AddLocalMinPoly");
               resultOp = AddLocalMinPoly(ae1, ae2, pt);
               break;
           }
@@ -2064,9 +2161,9 @@ namespace Clipper2Lib
         IntersectNode node = _intersectList[i];
         IntersectEdges(node.edge1, node.edge2, node.pt);
         //node.pt是node.edge1与node.edge2的交点
-        Console.WriteLine("ProcessIntersectList edge1.bot:"+ node.edge1.bot + " top:" + node.edge1.top + 
-          " edge2.bot:" + node.edge2.bot + " top:" + node.edge2.top
-          +" pt:" + node.pt);
+        //Console.WriteLine("ProcessIntersectList edge1.bot:"+ node.edge1.bot + " top:" + node.edge1.top + 
+        //  " edge2.bot:" + node.edge2.bot + " top:" + node.edge2.top
+        //  +" pt:" + node.pt);
         SwapPositionsInAEL(node.edge1, node.edge2);//!!!!!
 
         node.edge1.curX = node.pt.X;//更新当前活动边与scanline的交点的x值
@@ -2314,6 +2411,7 @@ private void DoHorizontal(Active horz)
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private void DoTopOfScanbeam(long y)
     {
+      Console.WriteLine("DoTopOfScanbeam y:"+ y/100);
       _sel = null; // sel_ is reused to flag horizontals (see PushHorz below)
       Active? ae = _actives;
       while (ae != null)
@@ -2324,19 +2422,24 @@ private void DoHorizontal(Active horz)
           ae.curX = ae.top.X;
           if (IsMaxima(ae))
           {
+            Console.WriteLine("DoTopOfScanbeam before DoMaxima");
             ae = DoMaxima(ae); // TOP OF BOUND (MAXIMA)
             continue;
           }
-
+          //Console.WriteLine("DoTopOfScanbeam ae:"+ ae.ToString()+ " ae.top:"+ ae.top.ToString()+ "IsHotEdge:"+ IsHotEdge(ae)+ " ae.curX:"+ ae.curX);
           // INTERMEDIATE VERTEX ...
           if (IsHotEdge(ae))//!!!!!!!
             AddOutPt(ae, ae.top);//ae.outrec.pts = ae.top
           UpdateEdgeIntoAEL(ae);
+          //Console.WriteLine("DoTopOfScanbeam after UpdateEdgeIntoAEL ae:" + ae.ToString() + " ae.top:" + ae.top.ToString() + "IsHotEdge:" + IsHotEdge(ae) + " ae.curX:" + ae.curX);
           if (IsHorizontal(ae))
             PushHorz(ae); // horizontals are processed later
         }
         else // i.e. not the top of the edge
+        {
           ae.curX = TopX(ae, y);
+          Console.WriteLine("DoTopOfScanbeam ae.curX = TopX(ae, y):" + ae.curX/100);
+        }
 
         ae = ae.nextInAEL;
       }
@@ -2983,13 +3086,13 @@ private void DoHorizontal(Active horz)
         if (op2 == outrec.pts) break;
       }
     }
-
+    //op含有prev和next是个双向链表,通过遍历链表，构成path
     internal static bool BuildPath(OutPt? op, bool reverse, bool isOpen, Path64 path)//!!!!!!
     {
       if (op == null || op.next == op || (!isOpen && op.next == op.prev)) return false;
       path.Clear();
       //Console.WriteLine(">>>>>BuildPath op.pt:" + op.pt);
-      Console.WriteLine(">>>>>BuildPath");
+      //Console.WriteLine(">>>>>BuildPath");
       Point64 lastPt;
       OutPt op2;
       if (reverse)
@@ -3006,7 +3109,7 @@ private void DoHorizontal(Active horz)
       }
       path.Add(lastPt);
       //Console.WriteLine("--------------reverse:" + reverse);
-      Console.WriteLine("path.Add lastPt:" + lastPt);
+      //Console.WriteLine("path.Add lastPt=op:" + lastPt);
 
       while (op2 != op)
       {
@@ -3014,7 +3117,7 @@ private void DoHorizontal(Active horz)
         {
           lastPt = op2.pt;
           path.Add(lastPt);
-          Console.WriteLine("while path.Add lastPt:" + lastPt);
+          //Console.WriteLine("while path.Add lastPt:" + lastPt);
         }
         if (reverse)
           op2 = op2.prev;
@@ -3022,7 +3125,7 @@ private void DoHorizontal(Active horz)
           op2 = op2.next!;
       }
       //Console.WriteLine("<<<<<<BuildPath op.pt:" + op.pt);//op.pt改变了
-      Console.WriteLine("<<<<<<BuildPath");
+      //Console.WriteLine("<<<<<<BuildPath");
       return path.Count != 3 || isOpen || !IsVerySmallTriangle(op2);
     }
 
@@ -3064,16 +3167,16 @@ private void DoHorizontal(Active horz)
           // except when ReverseSolution == true
           //>>BuildPaths before outrec.pts:OutPt pt:31061,16020  numb:1 pt:30000,20000  numb:2 pt:15000,25000  numb:3 pt:13714,18571
           //>> BuildPaths before path:Path6
-          Console.WriteLine(">>BuildPaths before outrec.pts:" + outrec.pts.ToString());
-          Console.WriteLine(">>BuildPaths before path:" + path.ToString());//空的
+          //Console.WriteLine(">>BuildPaths before outrec.pts:" + outrec.pts.ToString());
+          //Console.WriteLine(">>BuildPaths before path:" + path.ToString());//空的
           if (BuildPath(outrec.pts, ReverseSolution, false, path))
           {
             solutionClosed.Add(path);
           }
           //<< BuildPaths after outrec.pts: OutPt pt:31061,16020  numb: 1 pt: 30000,20000  numb: 2 pt: 15000,25000  numb: 3 pt: 13714,18571
           //<< BuildPaths after path:Path64: 30000,20000 , 15000,25000 , 13714,18571 , 31061,16020
-          Console.WriteLine("<<BuildPaths after outrec.pts:" + outrec.pts.ToString());//outrec.pts并未改变
-          Console.WriteLine("<<BuildPaths after path:" + path.ToString());//由空变为只是同outrec内容一样，只是顺序不同,所以outrec已经包含完备信息，重点关注outrec的生成,即outrec.pts及其next指针指向的链表 
+          //Console.WriteLine("<<BuildPaths after outrec.pts:" + outrec.pts.ToString());//outrec.pts并未改变,变得只有path
+          //Console.WriteLine("<<BuildPaths after path:" + path.ToString());//由空变为只是同outrec内容一样，只是顺序不同,所以outrec已经包含完备信息，重点关注outrec的生成,即outrec.pts及其next指针指向的链表 
         }
       }
       return true;

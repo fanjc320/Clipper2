@@ -456,14 +456,14 @@ namespace ClipperDemo1
       PathsD solution = new();
       PathsD solution_tri = new();
       solution.Clear();
-      PathsD pRect = new() { Clipper.MakePath(new double[] { 100, 0, 340, 50, 300, 200, 150, 250 }) };
+      PathsD pRect = new() { Clipper.MakePath(new double[] { 100, 0, 340, 40, 300, 200, 150, 250 }) };
       solution.AddRange(pRect);
 
       double scale = 100;
       Paths64 pp64_rect = Clipper.ScalePaths64(solution, scale);
 
       solution_tri.Clear();
-      PathsD pTri = new() { Clipper.MakePath(new double[] { 300, 50, 380, 150, 40, 200 }) };
+      PathsD pTri = new() { Clipper.MakePath(new double[] { 300, 50, 380, 150, 40, 180 }) };
       solution_tri.AddRange(pTri);
       Paths64 pp64_tri = Clipper.ScalePaths64(solution_tri, scale);
 

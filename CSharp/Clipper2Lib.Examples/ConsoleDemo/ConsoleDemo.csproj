@@ -37,5 +37,9 @@
     <None Remove="*.svg" />
     <None Remove="*.ico" />
   </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Colorful.Console" Version="1.2.15" />
+  </ItemGroup>
   
 </Project>

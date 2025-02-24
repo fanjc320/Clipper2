@@ -18,7 +18,6 @@ namespace Clipper2Lib
   {
     public long X;
     public long Y;
-
 #if USINGZ
     public long Z;
 #endif
@@ -117,7 +116,7 @@ namespace Clipper2Lib
 #if USINGZ
       return $"{X},{Y},{Z} ";
 #else
-      return $"{X},{Y} ";
+      return $"{X/100},{Y/100}";
 #endif
 
     }
