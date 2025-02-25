@@ -1,22 +1,111 @@
 <?xml version="1.0" standalone="no"?>
-<svg width="314.4px" height="300px" viewBox="0 0 314.4 300" version="1.1" xmlns="http://www.w3.org/2000/svg">
+<svg width="487.6px" height="630px" viewBox="0 0 487.6 630" version="1.1" xmlns="http://www.w3.org/2000/svg">
 
- <path id ="test" d=" M 64.00 50.00 L 214.00 250.00 L 24.00 250.00 z M 14.00 0.00 L 14.00 300.00 L 314.00 300.00 L 314.00 0.00 z M 254.00 270.00 L -0.40 270.00 L 53.16 2.21 z M 304.00 10.00 L 24.00 10.00 L 24.00 290.00 L 304.00 290.00 z"
+<svg width="500" height="400" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="#f0f0f0" />
+
+  <!-- Grid Lines (every 50 units) -->
+  <!-- Vertical Grid Lines -->
+  <path d="M50,0 V400 M100,0 V400 M150,0 V400 M200,0 V400 M250,0 V400 M300,0 V400 M350,0 V400" 
+        stroke="#ccc" stroke-width="1" fill="none" />
+  <!-- Horizontal Grid Lines -->
+  <path d="M0,50 H400 M0,100 H400 M0,150 H400 M0,200 H400 M0,250 H400 M0,300 H400 M0,350 H400" 
+        stroke="#ccc" stroke-width="1" fill="none" />
+
+  <!-- Axes -->
+  <line x1="0" y1="0" x2="500" y2="0" stroke="black" stroke-width="2" /> <!-- X-axis -->
+  <line x1="0" y1="0" x2="0" y2="400" stroke="black" stroke-width="2" /> <!-- Y-axis -->
+
+  <!-- X-axis Tick Marks and Labels (every 50 units) -->
+  <g id="x-axis-ticks">
+    <line x1="50" y1="0" x2="50" y2="10" stroke="black" /> <!-- Tick at x=50 -->
+    <text x="50" y="25" font-size="12" text-anchor="middle">50</text>
+    
+    <line x1="100" y1="0" x2="100" y2="10" stroke="black" /> <!-- Tick at x=100 -->
+    <text x="100" y="25" font-size="12" text-anchor="middle">100</text>
+    
+    <line x1="150" y1="0" x2="150" y2="10" stroke="black" /> <!-- Tick at x=150 -->
+    <text x="150" y="25" font-size="12" text-anchor="middle">150</text>
+    
+    <!-- Repeat for remaining ticks... -->
+    <line x1="200" y1="0" x2="200" y2="10" stroke="black" />
+    <text x="200" y="25" font-size="12" text-anchor="middle">200</text>
+    
+    <line x1="250" y1="0" x2="250" y2="10" stroke="black" />
+    <text x="250" y="25" font-size="12" text-anchor="middle">250</text>
+    
+    <line x1="300" y1="0" x2="300" y2="10" stroke="black" />
+    <text x="300" y="25" font-size="12" text-anchor="middle">300</text>
+    
+    <line x1="350" y1="0" x2="350" y2="10" stroke="black" />
+    <text x="350" y="25" font-size="12" text-anchor="middle">350</text>
+  </g>
+
+  <!-- Y-axis Tick Marks and Labels (every 50 units) -->
+  <g id="y-axis-ticks">
+    <line x1="0" y1="50" x2="10" y2="50" stroke="black" /> <!-- Tick at y=50 -->
+    <text x="25" y="55" font-size="12" text-anchor="start">50</text>
+    
+    <line x1="0" y1="100" x2="10" y2="100" stroke="black" /> <!-- Tick at y=100 -->
+    <text x="25" y="105" font-size="12" text-anchor="start">100</text>
+    
+    <line x1="0" y1="150" x2="10" y2="150" stroke="black" /> <!-- Tick at y=150 -->
+    <text x="25" y="155" font-size="12" text-anchor="start">150</text>
+    
+    <!-- Repeat for remaining ticks... -->
+    <line x1="0" y1="200" x2="10" y2="200" stroke="black" />
+    <text x="25" y="205" font-size="12" text-anchor="start">200</text>
+    
+    <line x1="0" y1="250" x2="10" y2="250" stroke="black" />
+    <text x="25" y="255" font-size="12" text-anchor="start">250</text>
+    
+    <line x1="0" y1="300" x2="10" y2="300" stroke="black" />
+    <text x="25" y="305" font-size="12" text-anchor="start">300</text>
+    
+    <line x1="0" y1="350" x2="10" y2="350" stroke="black" />
+    <text x="25" y="355" font-size="12" text-anchor="start">350</text>
+  </g>
+
+  <!-- Axis Labels -->
+  <text x="380" y="20" font-size="14" fill="black">X</text> <!-- X-axis label -->
+  <text x="20" y="380" font-size="14" fill="black">Y</text> <!-- Y-axis label -->
+
+  <!-- Example Point at (100, 100) -->
+  <!-- <circle cx="340" cy="150" r="3" fill="red" /> -->
+  <!-- <circle cx="340" cy="200" r="3" fill="red" /> -->
+  <!-- <circle cx="100" cy="200" r="3" fill="red" /> -->
+  <!-- <circle cx="100" cy="150" r="3" fill="red" /> -->
+  
+  <!-- <circle cx="340" cy="0" r="3" fill="blue" /> -->
+  <!-- <circle cx="340" cy="100" r="3" fill="blue" /> -->
+  <!-- <circle cx="300" cy="50" r="3" fill="blue" /> -->
+  <!-- <circle cx="100" cy="126" r="3" fill="blue" /> -->
+  <!-- <circle cx="100" cy="0" r="3" fill="blue" /> -->
+  
+  
+  <text x="310" y="160" font-size="10" fill="red">(310, 160)</text>
+  <text x="300" y="200" font-size="10" fill="red">(300, 200)</text>
+  <text x="150" y="250" font-size="10" fill="red">(150, 250)</text>
+  <text x="137" y="185" font-size="10" fill="red">(137, 185)</text>
+  
+  <text x="100" y="10" font-size="10" fill="red">(100, 0)</text>
+  <text x="340" y="50" font-size="10" fill="red">(340, 50)</text>
+  <text x="330" y="87" font-size="10" fill="red">(330, 87)</text>
+  <text x="300" y="50" font-size="10" fill="red">(300, 50)</text>
+  <text x="129" y="148" font-size="10" fill="red">(129, 148)</text>
+  <text x="40" y="200" font-size="10" fill="red">(40, 200)</text>
+  <text x="380" y="150" font-size="10" fill="red">(380, 150)</text>
+</svg> <path id = "test" d=" M 137.00 350.00 L 287.00 550.00 L 97.00 550.00 z M 87.00 300.00 L 87.00 600.00 L 387.00 600.00 L 387.00 300.00 z M 327.00 570.00 L 72.60 570.00 L 126.16 302.21 z M 367.00 590.00 L 48.20 590.00 L 115.32 254.42 z M 407.00 610.00 L 23.80 610.00 L 104.48 206.63 z M 447.00 630.00 L -0.60 630.00 L 93.64 158.84 z"
  style="fill:#80FF9C; fill-opacity:0.25; fill-rule:evenodd; stroke:#003300; stroke-opacity:1.00; stroke-width:1.50;"/>
- 
- <circle r="10" fill="skyblue">
-		<animateMotion dur="10s" repeatCount="indefinite">
-			<mpath href="#test"></mpath>
-		</animateMotion>
-	</circle>
-	
-	<svg height="500" width="700" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-    <path d="M10,20 A 30,30 0 0,0 40,70" style="stroke:#FFA500; stroke-width:1; fill:none" />
-    <path d="M10,20 A 30,30 0 1 0 40,70" style="stroke: #FF0000; stroke-width:1; fill:none" />
-    <path d="M10,20 A 30,30 0 0 0 40,70 A 30,30 0 1 1 10,20" style="stroke: #FFA500; stroke-width:1; fill:#FFD700" transform="translate(70,0)" />
-</svg>  
 
- <!-- <path d=" M 64.00 50.00 L 214.00 250.00 L 24.00 250.00 z M 14.00 0.00 L 14.00 300.00 L 314.00 300.00 L 314.00 0.00 z M 254.00 270.00 L -0.40 270.00 L 53.16 2.21 z M 304.00 10.00 L 24.00 10.00 L 24.00 290.00 L 304.00 290.00 z"
- style="fill:#80FF9C; fill-opacity:0.25; fill-rule:evenodd; stroke:#003300; stroke-opacity:1.00; stroke-width:1.50;"/> -->
+"
+ <circle r="10" fill="skyblue"><animateMotion dur="10s" repeatCount="indefinite"><mpath href="#test"></mpath></animateMotion></circle> "  
 
-</svg>
+  <path id = "test" d=" M 137.00 350.00 L 287.00 550.00 L 97.00 550.00 z M 87.00 300.00 L 87.00 600.00 L 387.00 600.00 L 387.00 300.00 z M 327.00 570.00 L 72.60 570.00 L 126.16 302.21 z M 367.00 590.00 L 48.20 590.00 L 115.32 254.42 z M 407.00 610.00 L 23.80 610.00 L 104.48 206.63 z M 447.00 630.00 L -0.60 630.00 L 93.64 158.84 z"
+ style="fill:#80FF9C; fill-opacity:0.25; fill-rule:evenodd; stroke:#003300; stroke-opacity:1.00; stroke-width:1.50;"/>
+
+"
+ <circle r="10" fill="skyblue"><animateMotion dur="10s" repeatCount="indefinite"><mpath href="#test"></mpath></animateMotion></circle> "  
+
+ </svg>

@@ -7,12 +7,15 @@ import numpy as np
 from matplotlib.patches import Polygon
 
 # Define coordinates (example: a trapezoid)
-coords_up = [(100, 0), (340, 50), (330, 87), (300, 50), (129, 148)]
-coords_down = [(310, 160), (300, 200), (150, 250), (137, 185)]
+coords_up = [(100, 0), (340, 40), (328, 85), (300, 50), (127, 136)]
+coords_down = [(310, 156), (300, 200), (150, 250), (134, 171)]
 
 # Create plot
 fig, ax = plt.subplots(constrained_layout=True)
-# fig, ax = plt.subplots()
+# plt.figure(figsize=(10, 10))
+# plt.rcParams['figure.figsize'] = [16, 8]
+fig.set_size_inches(10,10)
+
 # polygonU = Polygon(coords_up, closed=True, edgecolor='grey', facecolor='grey', alpha=0.5)
 # polygonD = Polygon(coords_down, closed=True, edgecolor='grey', facecolor='grey', alpha=0.5)
 polygonU = Polygon(coords_up, closed=True, facecolor='grey', alpha=0.5)
@@ -22,7 +25,7 @@ ax.add_patch(polygonD)
 
 # Adjust axes to fit the polygon
 ax.set_xlim(0, 400)
-ax.set_ylim(0, 400)
+ax.set_ylim(-50, 400)
 ax.invert_yaxis()
 ax.set_aspect(1)
 # fig.subplots_adjust(left=0, right=1, top=1, bottom=0)
@@ -34,6 +37,8 @@ for i in range(len(coords_up)):
 for i in range(len(coords_down)):
     plt.annotate(f'{coords_down[i]}', coords_down[i], textcoords="offset points", xytext=(0,5), ha='center')
 
+plt.annotate((40, 180), (40, 180), textcoords="offset points", xytext=(0,5), ha='center')
+plt.annotate((380, 150), (380, 150), textcoords="offset points", xytext=(0,5), ha='center')
 # ---------------------------------
 
 data = [
@@ -43,29 +48,29 @@ data = [
         'back': [(150, 250), (300, 200)]
     },
     {
-        'pts': [(137, 185), (300, 200), (150, 250)],
+        'pts': [(134, 171), (300, 200), (150, 250)],
         'front': [(150, 250), (100, 0)],
-        'back': [(300, 200), (340, 50)]
+        'back': [(300, 200), (340, 40)]
     },
     {
-        'pts': [(310, 160), (300, 200), (150, 250), (137, 185)],
-        'front': [(40, 200), (380, 150)],
-        'back': [(300, 200), (340, 50)]
+        'pts': [(310, 156), (300, 200), (150, 250), (134, 171)],
+        'front': [(40, 180), (380, 150)],
+        'back': [(300, 200), (340, 40)]
     },
     {
-        'pts': [(129, 148), (300, 50)],
+        'pts': [(127, 136), (300, 50)],
         'front': [(150, 250), (100, 0)],
-        'back': [(40, 200), (300, 50)]
+        'back': [(40, 180), (300, 50)]
     },
     {
-        'pts': [(129, 148), (340, 50), (330, 87), (300, 50)],
+        'pts': [(127, 136), (340, 40), (328, 85), (300, 50)],
         'front': [(150, 250), (100, 0)],
-        'back': [(300, 200), (340, 50)]
+        'back': [(300, 200), (340, 40)]
     },
     {
-        'pts': [(100, 0), (340, 50), (330, 87), (300, 50), (129, 148)],
+        'pts': [(100, 0), (340, 40), (328, 85), (300, 50), (127, 136)],
         'front': [(150, 250), (100, 0)],
-        'back': [(340, 50), (100, 0)]
+        'back': [(340, 40), (100, 0)]
     }
 ]
 
@@ -83,8 +88,8 @@ class FramePlayer:
         # ax.set_title("Press → to next frame, ← to previous")
         fig.canvas.mpl_connect('key_press_event', self.on_key)
 
-        self.left, = ax.plot([], [], 'r<', linewidth=2, markersize=10)
-        self.right, = ax.plot([], [], 'b>', linewidth=2, markersize=10)
+        self.left, = ax.plot([], [], 'r>-', linewidth=2, markersize=10)
+        self.right, = ax.plot([], [], 'b>-', linewidth=2, markersize=10)
         self.pts, = ax.plot([], [], 'yo', markersize=18)
 
     def on_key(self, event):
@@ -114,5 +119,4 @@ class FramePlayer:
 
 player = FramePlayer(fig, ax, frames)
 
-plt.figure(figsize=(100,100))
 plt.show()

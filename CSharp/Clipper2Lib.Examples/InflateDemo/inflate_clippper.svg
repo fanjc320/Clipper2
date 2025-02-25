@@ -96,7 +96,7 @@
   <text x="129" y="148" font-size="10" fill="red">(129, 148)</text>
   <text x="40" y="200" font-size="10" fill="red">(40, 200)</text>
   <text x="380" y="150" font-size="10" fill="red">(380, 150)</text>
-</svg> <path id = "test" d=" M 300.00 200.00 L 150.00 250.00 L 134.33 171.67 L 310.97 156.09 z M 340.00 40.00 L 328.57 85.71 L 300.00 50.00 L 127.27 136.36 L 100.00 0.00 z"
+</svg> <path id = "test" d=" M 340.00 200.00 L 100.00 200.00 L 100.00 150.00 L 340.00 150.00 z M 340.00 100.00 L 300.00 50.00 L 100.00 126.92 L 100.00 0.00 L 340.00 0.00 z"
  style="fill:#80FF9C; fill-opacity:0.25; fill-rule:nonzero; stroke:#003300; stroke-opacity:1.00; stroke-width:1.50;"/>
 
 "

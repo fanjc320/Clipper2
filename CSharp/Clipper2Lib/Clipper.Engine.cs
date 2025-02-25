@@ -2264,8 +2264,8 @@ namespace Clipper2Lib
 
         node.edge1.curX = node.pt.X;//更新当前活动边与scanline的交点的x值
         node.edge2.curX = node.pt.X;
-        //CheckJoinLeft(node.edge2, node.pt, true);//注释掉有时候没影响
-        //CheckJoinRight(node.edge1, node.pt, true);
+        CheckJoinLeft(node.edge2, node.pt, true);//注释掉有时候没影响
+        CheckJoinRight(node.edge1, node.pt, true);
       }
     }
 

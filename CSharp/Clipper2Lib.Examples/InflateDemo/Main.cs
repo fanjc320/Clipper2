@@ -25,9 +25,9 @@ namespace ClipperDemo1
       //DoSimpleInflatePaths2();
       //DoSimpleClipperOffset();
       //DoSimpleClipperOffset1();
-      //DoSimpleClipperOffset2();
+      DoSimpleClipperOffset2();
       //DoSimpleClipperOffset3();
-      DoSimpleClipperOffset4();
+      //DoSimpleClipperOffset4();
       //DoRabbit();
       //DoVariableOffset();
     }
@@ -197,7 +197,7 @@ namespace ClipperDemo1
       ClipperFileIO.OpenFileWithDefaultApp(filename);
     }
 
-    public static void DoSimpleInflatePaths2()//只显示一个平行方框和三角
+    public static void DoSimpleInflatePaths2()//显示一个方框和平行三角
     {
       SvgWriter svg = new();
       PathsD solution = new();
@@ -210,7 +210,7 @@ namespace ClipperDemo1
       solution.AddRange(pRect);
       //PathsD pRect1 = new() { Clipper.MakePath(new double[] { 0, 260, 60, 260, 60, 300, 00, 300 }) };
       //solution.AddRange(pRect1);
-      for (int i = 0; i < 1; ++i)
+      for (int i = 0; i < 4; ++i)
       {
         //nb: the last parameter here (10) greatly increases miter limit
         pTri = Clipper.InflatePaths(pTri, 20, JoinType.Miter, EndType.Polygon, 10);
@@ -364,6 +364,7 @@ namespace ClipperDemo1
         //solution.AddRange(pTri);//AddRange：添加实现了ICollection接口的一个集合的所有元素到指定集合的末尾
         pRect = Clipper.InflatePaths(pRect, -10, JoinType.Miter, EndType.Polygon, 10);//单边的，外到内->绿，白
         //pRect = Clipper.InflatePaths(pRect, 10, JoinType.Square, EndType.Joined, 0);//双边的,外到内->绿白绿
+        //pRect = Clipper.InflatePaths(pRect, -10, JoinType.Miter, EndType.Polygon, 0);
         solution.AddRange(pRect);
         //SvgUtils.AddSubject(svg, pRect);
       }
@@ -393,7 +394,7 @@ namespace ClipperDemo1
       //SvgUtils.AddSolution(svg, solution, false);
       SvgUtils.AddSolution(svg, solution_new, false);
       //SvgUtils.AddSubject(svg, pTri);//灰色三角
-      SvgUtils.AddClip(svg, pTri);//红色三角,和上面只是三角的颜色不同
+      //SvgUtils.AddClip(svg, pTri);//红色三角,和上面只是三角的颜色不同
 
       //SvgUtils.SaveToFile(svg, filename, FillRule.NonZero, 0, 0, 0);
       SvgUtils.SaveToFile(svg, filename, FillRule.Positive, 0, 0, 0);
