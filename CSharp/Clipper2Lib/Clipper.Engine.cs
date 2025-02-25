@@ -1387,7 +1387,7 @@ namespace Clipper2Lib
             PushHorz(rightBound);
           else
           {
-            LogHelper.Blue("InsertLocalMinimaIntoAEL CheckJoinRight InsertScanline");
+            LogHelper.Blue("InsertLocalMinimaIntoAEL CheckJoinRight InsertScanline rightBound.top.Y:"+ rightBound.top.Y/100);
             CheckJoinRight(rightBound, rightBound.bot);
             InsertScanline(rightBound.top.Y);
           }
@@ -1399,7 +1399,7 @@ namespace Clipper2Lib
           PushHorz(leftBound);
         else
         {
-          LogHelper.Blue("InsertLocalMinimaIntoAEL InsertScanline leftBound.top.Y:"+leftBound.top.Y);
+          LogHelper.Blue("InsertLocalMinimaIntoAEL InsertScanline leftBound.top.Y:"+leftBound.top.Y/100);
           InsertScanline(leftBound.top.Y);
         }
       } // while (HasLocMinAtY())
@@ -1500,6 +1500,7 @@ namespace Clipper2Lib
         }
         else
         {
+          LogHelper.Orange("AddLocalMaxPoly _succeed=false ");
           _succeeded = false;
           return null;
         }
@@ -1510,7 +1511,7 @@ namespace Clipper2Lib
       {
         OutRec outrec = ae1.outrec!;
         outrec.pts = result;
-
+        LogHelper.Orange("AddLocalMaxPoly ae1.outrec == ae2.outrec");
         if (_using_polytree)
         {
           Active? e = GetPrevHotEdge(ae1);
@@ -1547,6 +1548,7 @@ namespace Clipper2Lib
         LogHelper.Orange("AddLocalMaxPoly 77 JoinOutrecPaths ");
         JoinOutrecPaths(ae2, ae1);
       }
+      LogHelper.Orange("AddLocalMaxPoly 88 return result");
       return result;
     }
 
@@ -1900,7 +1902,7 @@ namespace Clipper2Lib
         if ((oldE1WindCount != 0 && oldE1WindCount != 1) || (oldE2WindCount != 0 && oldE2WindCount != 1) ||
             (ae1.localMin.polytype != ae2.localMin.polytype && _cliptype != ClipType.Xor))
         {
-          Console.WriteLine("IntersectEdges AddLocalMaxPoly 1");
+          Console.WriteLine("IntersectEdges 11 AddLocalMaxPoly ");
           resultOp = AddLocalMaxPoly(ae1, ae2, pt);
 #if USINGZ
           if (resultOp != null)
@@ -1912,7 +1914,7 @@ namespace Clipper2Lib
           // this 'else if' condition isn't strictly needed but
           // it's sensible to split polygons that only touch at
           // a common vertex (not at common edges).
-          Console.WriteLine("IntersectEdges AddLocalMaxPoly 2");
+          Console.WriteLine("IntersectEdges  22 AddLocalMaxPoly AddLocalMinPoly");
           resultOp = AddLocalMaxPoly(ae1, ae2, pt);
 #if USINGZ
           OutPt op2 = AddLocalMinPoly(ae1, ae2, pt);
@@ -1942,12 +1944,12 @@ namespace Clipper2Lib
       // if one or other edge is 'hot' ...
       else if (IsHotEdge(ae1))
       {
+        Console.WriteLine("IntersectEdges IsHotEdge(ae1) AddOutPt SwapOutrecs");
         resultOp = AddOutPt(ae1, pt);
 #if USINGZ
         SetZ(ae1, ae2, ref resultOp.pt);
 #endif
         SwapOutrecs(ae1, ae2);
-        Console.WriteLine("IntersectEdges IsHotEdge(ae1) AddOutPt SwapOutrecs");
       }
       else if (IsHotEdge(ae2))
       {
@@ -2143,7 +2145,7 @@ namespace Clipper2Lib
         }
       }
       IntersectNode node = new IntersectNode(ip, ae1, ae2);
-      LogHelper.Tan(node.ToString());
+      LogHelper.Tan("AddNewIntersectNode node:" + node.ToString());
       _intersectList.Add(node);
     }
 
@@ -2199,6 +2201,7 @@ namespace Clipper2Lib
               Active? tmp = right.prevInSEL!;
               for (; ; )
               {
+                Console.WriteLine("BuildIntersectList AddNewIntersectNode");
                 AddNewIntersectNode(tmp, right, topY);
                 if (tmp == left) break;
                 tmp = tmp.prevInSEL!;
@@ -2251,6 +2254,7 @@ namespace Clipper2Lib
         }
 
         IntersectNode node = _intersectList[i];
+        LogHelper.Gray("ProcessIntersectList IntersectEdges node.edge1:"+node.edge1+" node.edge2:"+node.edge2+" node.pt:"+node.pt);
         IntersectEdges(node.edge1, node.edge2, node.pt);
         //node.pt是node.edge1与node.edge2的交点
         //Console.WriteLine("ProcessIntersectList edge1.bot:"+ node.edge1.bot + " top:" + node.edge1.top + 
@@ -2441,6 +2445,7 @@ private void DoHorizontal(Active horz)
 
           if (isLeftToRight)
           {
+            Console.WriteLine("IntersectEdges(horz, ae, pt);");
             IntersectEdges(horz, ae, pt);
             SwapPositionsInAEL(horz, ae);
             CheckJoinLeft(ae, pt);
@@ -2449,6 +2454,7 @@ private void DoHorizontal(Active horz)
           }
           else
           {
+            Console.WriteLine("IntersectEdges(ae, horz, pt);");
             IntersectEdges(ae, horz, pt);
             SwapPositionsInAEL(ae, horz);
             CheckJoinRight(ae, pt);
@@ -2572,6 +2578,7 @@ private void DoHorizontal(Active horz)
       // process any edges between maxima pair ...
       while (nextE != maxPair)
       {
+        Console.WriteLine("DoMaxima IntersectEdges(ae, nextE!, ae.top)");
         IntersectEdges(ae, nextE!, ae.top);
         SwapPositionsInAEL(ae, nextE!);
         nextE = ae.nextInAEL;
@@ -3213,7 +3220,7 @@ private void DoHorizontal(Active horz)
       }
     }
     //op含有prev和next是个双向链表,通过遍历链表，构成path
-    internal static bool BuildPath(OutPt? op, bool reverse, bool isOpen, Path64 path)//!!!!!!
+    internal static bool BuildPath(OutPt? op, bool reverse, bool isOpen, Path64 path)//!!!!!!path:分割后的path,通过OutPt链表构建
     {
       if (op == null || op.next == op || (!isOpen && op.next == op.prev)) return false;
       path.Clear();
@@ -3274,7 +3281,7 @@ private void DoHorizontal(Active horz)
       int i = 0;
       // _outrecList.Count is not static here because
       // CleanCollinear can indirectly add additional OutRec
-      while (i < _outrecList.Count)
+      while (i < _outrecList.Count)//_outrecList.Count代表有几个path, 如果是封闭的，就会有几个封闭出来的polygon
       {
         OutRec outrec = _outrecList[i++];
         if (outrec.pts == null) continue;
@@ -3295,7 +3302,7 @@ private void DoHorizontal(Active horz)
           //>> BuildPaths before path:Path6
           //Console.WriteLine(">>BuildPaths before outrec.pts:" + outrec.pts.ToString());
           //Console.WriteLine(">>BuildPaths before path:" + path.ToString());//空的
-          if (BuildPath(outrec.pts, ReverseSolution, false, path))
+          if (BuildPath(outrec.pts, ReverseSolution, false, path))//outrect.pts包含重建path的链表
           {
             solutionClosed.Add(path);
           }
