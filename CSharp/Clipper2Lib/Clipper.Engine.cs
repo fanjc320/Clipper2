@@ -121,6 +121,11 @@ namespace Clipper2Lib
       this.edge1 = edge1;
       this.edge2 = edge2;
     }
+    public override string ToString()
+    {
+      string result = "IntersectNode pt:" + pt.ToString() + " edge1:" + edge1.ToString() + " edge2:" + edge2.ToString();
+      return result;
+    }
   }
 
   internal struct LocMinSorter : IComparer<LocalMinima>
@@ -149,7 +154,7 @@ namespace Clipper2Lib
       horz = null;
     }
 
-    public string ToString()
+    public override string ToString()
     {
       int cnt = 1;
       OutPt op = this;
@@ -186,7 +191,7 @@ namespace Clipper2Lib
     public List<int>? splits;//?????
     public OutRec? recursiveSplit;//????
 
-    public string ToString()
+    public override string ToString()
     {
       string result = $">>>>OutRec idx:" + idx;
       if(pts != null)
@@ -277,12 +282,12 @@ namespace Clipper2Lib
     internal bool isLeftBound;
     internal JoinWith joinWith;
 
-    public string ToString()
+    public override string ToString()
     {
       string result = $"Active:" + bot.ToString();
       //result += " top:" + top.ToString() + " curX:" + curX/100;// + " vertexTop:" + vertexTop.pt;
       result += "->" + top.ToString();// + " curX:" + curX / 100;// + " vertexTop:" + vertexTop.pt;
-
+      //result += " windDx:" + windDx;// + " windCount:" + windCount + " windCount2:" + windCount2;
       return result;
     }
   }
@@ -351,6 +356,7 @@ namespace Clipper2Lib
           if (going_up)
           {
             v0.flags = VertexFlags.OpenStart;
+            LogHelper.Gray("AddPathsToVertexList 00 AddLocMin v0:" + v0.ToString());
             AddLocMin(v0, polytype, true, minimaList);
           }
           else
@@ -379,6 +385,7 @@ namespace Clipper2Lib
           else if (curr_v.pt.Y < prev_v.pt.Y && !going_up)
           {
             going_up = true;
+            LogHelper.Gray("AddPathsToVertexList 11 AddLocMin prev_v:" + prev_v.ToString());
             AddLocMin(prev_v, polytype, isOpen, minimaList);
           }
           prev_v = curr_v;
@@ -391,11 +398,18 @@ namespace Clipper2Lib
           if (going_up)
             prev_v.flags |= VertexFlags.LocalMax;
           else
+          {
+            LogHelper.Gray("AddPathsToVertexList 22 AddLocMin prev_v:" + prev_v.ToString());
             AddLocMin(prev_v, polytype, isOpen, minimaList);
+          }
         }
         else if (going_up != going_up0)
         {
-          if (going_up0) AddLocMin(prev_v, polytype, false, minimaList);
+          if (going_up0)
+          {
+            LogHelper.Gray("AddPathsToVertexList 33 AddLocMin prev_v:" + prev_v.ToString());
+            AddLocMin(prev_v, polytype, false, minimaList);
+          }
           else prev_v.flags |= VertexFlags.LocalMax;
         }
       }
@@ -625,6 +639,8 @@ namespace Clipper2Lib
     {
       Console.WriteLine("NextVertex ae.windDx:" + ae.windDx);
       return ae.windDx > 0 ? ae.vertexTop!.next! : ae.vertexTop!.prev!;
+      //Vertex res = ae.windDx > 0 ? ae.vertexTop!.next! : ae.vertexTop!.prev!;
+      //return res;
       //if (ae.windDx > 0)
       //{
       //  Console.WriteLine("NextVertex ae.windDx:" + ae.windDx + " ae.vertexTop!.next!:"+ ae.vertexTop!.next!);
@@ -908,7 +924,9 @@ namespace Clipper2Lib
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private bool HasLocMinAtY(long y)
     {
-      return (_currentLocMin < _minimaList.Count && _minimaList[_currentLocMin].vertex.pt.Y == y);
+      bool res = (_currentLocMin < _minimaList.Count && _minimaList[_currentLocMin].vertex.pt.Y == y);
+      //LogHelper.Red("HasLocMinAtY res:"+res+" y:" + y/100 + " _currentLocMin:" + _currentLocMin + " _minimaList.Count:" + _minimaList.Count + " _minimaList[_currentLocMin].vertex" + _minimaList[_currentLocMin].vertex);
+      return res;
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1053,7 +1071,7 @@ namespace Clipper2Lib
       // indicates the higher of the wind counts for the two regions touching the
       // edge. (nb: Adjacent regions can only ever have their wind counts differ by
       // one. Also, open paths have no meaningful wind directions or counts.)
-
+      LogHelper.HotPink("SetWindCountForClosedPathEdge before ae:" + ae.ToString());
       Active? ae2 = ae.prevInAEL;
       // find the nearest closed path edge of the same PolyType in AEL (heading left)
       PathType pt = GetPolyType(ae);
@@ -1123,6 +1141,8 @@ namespace Clipper2Lib
             ae.windCount2 += ae2!.windDx;
           ae2 = ae2!.nextInAEL;
         }
+
+      LogHelper.HotPink("SetWindCountForClosedPathEdge after ae:" + ae.ToString());
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1227,7 +1247,7 @@ namespace Clipper2Lib
         if (ae2.nextInAEL != null) ae2.nextInAEL.prevInAEL = ae;
         ae.prevInAEL = ae2;
         ae2.nextInAEL = ae;
-        Console.WriteLine("InsertLeftEdge 3 ae:" + ae.ToString() + " ae.prevInAEL:" + ae.prevInAEL.ToString() + " ae.nextInAEL:" + ae.nextInAEL.ToString());
+        Console.WriteLine("InsertLeftEdge 3 ae:" + ae.ToString() + " ae.prevInAEL:" + ae.prevInAEL!.ToString() + " ae.nextInAEL:" + ae.nextInAEL!.ToString());
       }
 
     }
@@ -1239,7 +1259,7 @@ namespace Clipper2Lib
       if (ae.nextInAEL != null) ae.nextInAEL.prevInAEL = ae2;
       ae2.prevInAEL = ae;
       ae.nextInAEL = ae2;
-      Console.WriteLine("InsertRightEdge ae.nextInAEL=ae2:" + ae.nextInAEL.ToString() + "ae2.prevInAEL=ae:" + ae2.prevInAEL.ToString());
+      Console.WriteLine("InsertRightEdge ae:" + ae.ToString()+" ae.nextInAEL=ae2:" + ae.nextInAEL.ToString() + "ae2.prevInAEL=ae:" + ae2.prevInAEL.ToString());
     }
 
     private void InsertLocalMinimaIntoAEL(long botY)
@@ -1254,6 +1274,7 @@ namespace Clipper2Lib
         Active? leftBound;
         if ((localMinima.vertex.flags & VertexFlags.OpenStart) != VertexFlags.None)
         {
+          LogHelper.Blue("InsertLocalMinimaIntoAEL VertexFlags OpenStart");
           leftBound = null;
         }
         else
@@ -1269,12 +1290,13 @@ namespace Clipper2Lib
             localMin = localMinima
           };
           SetDx(leftBound);
-          Console.WriteLine("InsertLocalMinimaIntoAEL new leftBound:" + leftBound.ToString());
+          LogHelper.Blue("InsertLocalMinimaIntoAEL new leftBound:" + leftBound.ToString());
         }
 
         Active? rightBound;
         if ((localMinima.vertex.flags & VertexFlags.OpenEnd) != VertexFlags.None)
         {
+          LogHelper.Blue("InsertLocalMinimaIntoAEL VertexFlags OpenEnd");
           rightBound = null;
         }
         else
@@ -1290,7 +1312,7 @@ namespace Clipper2Lib
             localMin = localMinima
           };
           SetDx(rightBound);
-          Console.WriteLine("InsertLocalMinimaIntoAEL new rightBound:" + rightBound.ToString());
+          LogHelper.Blue("InsertLocalMinimaIntoAEL new rightBound:" + rightBound.ToString());
         }
 
         // Currently LeftB is just the descending bound and RightB is the ascending.
@@ -1307,29 +1329,33 @@ namespace Clipper2Lib
           }
           else if (leftBound.dx < rightBound.dx)
           {
+            LogHelper.Blue("InsertLocalMinimaIntoAEL SwapActives");
             SwapActives(ref leftBound, ref rightBound);
-            Console.WriteLine("InsertLocalMinimaIntoAEL SwapActives");
           }
           //so when leftBound has windDx == 1, the polygon will be oriented
           //counter-clockwise in Cartesian coords (clockwise with inverted Y).
         }
         else if (leftBound == null)
         {
+          LogHelper.Blue("leftBound = rightBound");
           leftBound = rightBound;
           rightBound = null;
         }
 
         bool contributing;
         leftBound!.isLeftBound = true;
+        LogHelper.Blue("InsertLocalMinimaIntoAEL InsertLeftEdge");
         InsertLeftEdge(leftBound);
 
         if (IsOpen(leftBound))
         {
+          LogHelper.Blue("InsertLocalMinimaIntoAEL SetWindCountForOpenPathEdge");
           SetWindCountForOpenPathEdge(leftBound);
           contributing = IsContributingOpen(leftBound);
         }
         else
         {
+          LogHelper.Blue("InsertLocalMinimaIntoAEL SetWindCountForClosedPathEdge");
           SetWindCountForClosedPathEdge(leftBound);
           contributing = IsContributingClosed(leftBound);
         }
@@ -1338,10 +1364,12 @@ namespace Clipper2Lib
         {
           rightBound.windCount = leftBound.windCount;
           rightBound.windCount2 = leftBound.windCount2;
+          LogHelper.Blue("InsertLocalMinimaIntoAEL InsertRightEdge");
           InsertRightEdge(leftBound, rightBound); ///////
 
           if (contributing)
           {
+            LogHelper.Blue("InsertLocalMinimaIntoAEL contributing AddLocalMinPoly true CheckJoinLeft");
             AddLocalMinPoly(leftBound, rightBound, leftBound.bot, true);
             if (!IsHorizontal(leftBound))
               CheckJoinLeft(leftBound, leftBound.bot);
@@ -1350,6 +1378,7 @@ namespace Clipper2Lib
           while (rightBound.nextInAEL != null &&
                  IsValidAelOrder(rightBound.nextInAEL, rightBound))
           {
+            LogHelper.Blue("InsertLocalMinimaIntoAEL contributing IntersectEdges SwapPositionsInAEL");
             IntersectEdges(rightBound, rightBound.nextInAEL, rightBound.bot);
             SwapPositionsInAEL(rightBound, rightBound.nextInAEL);
           }
@@ -1358,6 +1387,7 @@ namespace Clipper2Lib
             PushHorz(rightBound);
           else
           {
+            LogHelper.Blue("InsertLocalMinimaIntoAEL CheckJoinRight InsertScanline");
             CheckJoinRight(rightBound, rightBound.bot);
             InsertScanline(rightBound.top.Y);
           }
@@ -1368,7 +1398,10 @@ namespace Clipper2Lib
         if (IsHorizontal(leftBound))
           PushHorz(leftBound);
         else
+        {
+          LogHelper.Blue("InsertLocalMinimaIntoAEL InsertScanline leftBound.top.Y:"+leftBound.top.Y);
           InsertScanline(leftBound.top.Y);
+        }
       } // while (HasLocMinAtY())
     }
 
@@ -1394,7 +1427,7 @@ namespace Clipper2Lib
       OutRec outrec = NewOutRec();////这里_outRecList被赋值了
       ae1.outrec = outrec;
       ae2.outrec = outrec;
-      Console.WriteLine("AddLocalMinPoly ae1:" + ae1.ToString() + " ae2:" + ae2.ToString() + " pt:" + pt.ToString());
+      LogHelper.Brown("AddLocalMinPoly ae1:" + ae1.ToString() + " ae2:" + ae2.ToString() + " pt:" + pt.ToString());
       if (IsOpen(ae1))
       {
         outrec.owner = null;
@@ -1434,22 +1467,37 @@ namespace Clipper2Lib
 
       OutPt op = new OutPt(pt, outrec);//!!!!!
       outrec.pts = op;//!!!!!
-      //Console.WriteLine("AddLocalMinPoly new outrec:" + outrec.ToString());
+      LogHelper.Brown("AddLocalMinPoly new OutPt:" + op.ToString());
+      LogHelper.Brown("AddLocalMinPoly new outrec:" + outrec.ToString());
       return op;
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private OutPt? AddLocalMaxPoly(Active ae1, Active ae2, Point64 pt)
     {
-      if (IsJoined(ae1)) Split(ae1, pt);/////????
-      if (IsJoined(ae2)) Split(ae2, pt);
+      if (IsJoined(ae1))
+      {
+        LogHelper.Orange("AddLocalMaxPoly 00 Split ");
+        Split(ae1, pt);/////????
+      }
+      if (IsJoined(ae2))
+      {
+        LogHelper.Orange("AddLocalMaxPoly 11 Split ");
+        Split(ae2, pt);
+      }
 
       if (IsFront(ae1) == IsFront(ae2))
       {
         if (IsOpenEnd(ae1))
+        {
+          LogHelper.Orange("AddLocalMaxPoly 22 SwapFrontBackSides ");
           SwapFrontBackSides(ae1.outrec!);//????
+        }
         else if (IsOpenEnd(ae2))
+        {
+          LogHelper.Orange("AddLocalMaxPoly 33 SwapFrontBackSides ");
           SwapFrontBackSides(ae2.outrec!);
+        }
         else
         {
           _succeeded = false;
@@ -1479,14 +1527,26 @@ namespace Clipper2Lib
       else if (IsOpen(ae1))
       {
         if (ae1.windDx < 0)
+        {
+          LogHelper.Orange("AddLocalMaxPoly 44 JoinOutrecPaths ");
           JoinOutrecPaths(ae1, ae2);
+        }
         else
+        {
+          LogHelper.Orange("AddLocalMaxPoly 55 JoinOutrecPaths ");
           JoinOutrecPaths(ae2, ae1);
+        }
       }
       else if (ae1.outrec!.idx < ae2.outrec!.idx)
+      {
+        LogHelper.Orange("AddLocalMaxPoly 66 JoinOutrecPaths ");
         JoinOutrecPaths(ae1, ae2);
+      }
       else
+      {
+        LogHelper.Orange("AddLocalMaxPoly 77 JoinOutrecPaths ");
         JoinOutrecPaths(ae2, ae1);
+      }
       return result;
     }
 
@@ -1499,6 +1559,8 @@ namespace Clipper2Lib
       OutPt p2Start = ae2.outrec!.pts!;
       OutPt p1End = p1Start.next!;
       OutPt p2End = p2Start.next!;
+      LogHelper.Cyan("JoinOutrecPaths ae1.outrec!.pts!" + p1Start.ToString());
+      LogHelper.Cyan("JoinOutrecPaths ae2.outrec!.pts!" + p2Start.ToString());
       if (IsFront(ae1))
       {
         p2End.prev = p1Start;
@@ -1534,7 +1596,8 @@ namespace Clipper2Lib
         ae2.outrec.pts = ae1.outrec.pts;
         ae1.outrec.pts = null;
       }
-
+      LogHelper.Cyan("JoinOutrecPaths after ae1.outrec!.pts!" + p1Start.ToString());
+      LogHelper.Cyan("JoinOutrecPaths after ae2.outrec!.pts!" + p2Start.ToString());
       // and ae1 and ae2 are maxima and are about to be dropped from the Actives list.
       ae1.outrec = null;
       ae2.outrec = null;
@@ -1677,24 +1740,44 @@ namespace Clipper2Lib
         if (IsOpen(ae1) && IsOpen(ae2)) return;
         // the following line avoids duplicating quite a bit of code
         if (IsOpen(ae2)) SwapActives(ref ae1, ref ae2);   //???????
-        if (IsJoined(ae2)) Split(ae2, pt); // needed for safety  //???????
+        if (IsJoined(ae2))
+        {
+          LogHelper.Gray("IntersectEdges IsJoined(ae2) Split(ae2,pt)");
+          Split(ae2, pt); // needed for safety  //???????
+        }
 
         if (_cliptype == ClipType.Union)
         {
           if (!IsHotEdge(ae2)) return;
         }
-        else if (ae2.localMin.polytype == PathType.Subject) return;
+        else if (ae2.localMin.polytype == PathType.Subject)
+        {
+          LogHelper.Gray("IntersectEdges ae2.localMin.polytype == PathType.Subject return");
+          return;
+        }
 
         switch (_fillrule)
         {
           case FillRule.Positive:
-            if (ae2.windCount != 1) return; 
+            if (ae2.windCount != 1)
+            {
+              LogHelper.Gray("IntersectEdges FillRule.Positive return");
+              return;
+            }
             break;
           case FillRule.Negative:
-            if (ae2.windCount != -1) return; 
+            if (ae2.windCount != -1)
+            {
+              LogHelper.Gray("IntersectEdges FillRule.Negative return");
+              return;
+            }
             break;
           default:
-            if (Math.Abs(ae2.windCount) != 1) return; 
+            if (Math.Abs(ae2.windCount) != 1)
+            {
+              LogHelper.Gray("IntersectEdges default Math.Abs(ae2.windCount) != 1 return");
+              return; 
+            }
             break;
         }
 
@@ -1741,8 +1824,16 @@ namespace Clipper2Lib
       }
 
       // MANAGING CLOSED PATHS FROM HERE ON
-      if (IsJoined(ae1)) Split(ae1, pt);   //?????
-      if (IsJoined(ae2)) Split(ae2, pt);   //?????
+      if (IsJoined(ae1))
+      {
+        LogHelper.Gray("IntersectEdges IsJoined(ae1) Split(ae1, pt)");
+        Split(ae1, pt);   //?????
+      }
+      if (IsJoined(ae2))
+      {
+        LogHelper.Gray("IntersectEdges IsJoined(ae2) Split(ae2, pt)");
+        Split(ae2, pt);   //?????
+      }
 
       // UPDATE WINDING COUNTS...
 
@@ -2052,6 +2143,7 @@ namespace Clipper2Lib
         }
       }
       IntersectNode node = new IntersectNode(ip, ae1, ae2);
+      LogHelper.Tan(node.ToString());
       _intersectList.Add(node);
     }
 
@@ -2429,7 +2521,10 @@ private void DoHorizontal(Active horz)
           //Console.WriteLine("DoTopOfScanbeam ae:"+ ae.ToString()+ " ae.top:"+ ae.top.ToString()+ "IsHotEdge:"+ IsHotEdge(ae)+ " ae.curX:"+ ae.curX);
           // INTERMEDIATE VERTEX ...
           if (IsHotEdge(ae))//!!!!!!!
+          {
+            LogHelper.Orange("DoTopOfScanbeam AddOutPt ae:"+ae.ToString());
             AddOutPt(ae, ae.top);//ae.outrec.pts = ae.top
+          }
           UpdateEdgeIntoAEL(ae);
           //Console.WriteLine("DoTopOfScanbeam after UpdateEdgeIntoAEL ae:" + ae.ToString() + " ae.top:" + ae.top.ToString() + "IsHotEdge:" + IsHotEdge(ae) + " ae.curX:" + ae.curX);
           if (IsHorizontal(ae))
@@ -2512,12 +2607,14 @@ private void DoHorizontal(Active horz)
       {
         e.joinWith = JoinWith.None;
         e.nextInAEL!.joinWith = JoinWith.None;
+        LogHelper.Honeydew("Split if AddLocalMinPoly true");
         AddLocalMinPoly(e, e.nextInAEL, currPt, true);
       }
       else
       {
         e.joinWith = JoinWith.None;
         e.prevInAEL!.joinWith = JoinWith.None;
+        LogHelper.Honeydew("Split if AddLocalMinPoly true");
         AddLocalMinPoly(e.prevInAEL, e, currPt, true);
       }
     }
@@ -2527,26 +2624,55 @@ private void DoHorizontal(Active horz)
       Point64 pt, bool checkCurrX = false)
     {
       Active? prev = e.prevInAEL;
-      if (prev == null || 
-        !IsHotEdge(e) || !IsHotEdge(prev) || 
+      if (prev == null ||
+        !IsHotEdge(e) || !IsHotEdge(prev) ||
         IsHorizontal(e) || IsHorizontal(prev) ||
-        IsOpen(e) || IsOpen(prev)) return;
+        IsOpen(e) || IsOpen(prev))
+      {
+        LogHelper.Snow("CheckJoinLeft 00 return");
+        return;
+      }
       if ((pt.Y < e.top.Y + 2 || pt.Y < prev.top.Y + 2) &&  // avoid trivial joins
-        ((e.bot.Y > pt.Y) || (prev.bot.Y > pt.Y))) return;  // (#490)
+        ((e.bot.Y > pt.Y) || (prev.bot.Y > pt.Y)))
+      {
+        LogHelper.Snow("CheckJoinLeft 11 return");
+        return;  // (#490)
+      }
 
       if (checkCurrX)
       {
-        if (Clipper.PerpendicDistFromLineSqrd(pt, prev.bot, prev.top) > 0.25) return;
+        if (Clipper.PerpendicDistFromLineSqrd(pt, prev.bot, prev.top) > 0.25)
+        {
+          LogHelper.Snow("CheckJoinLeft 22 return");
+          return;
+        }
       }
-      else if (e.curX != prev.curX) return;
-      if (!InternalClipper.IsCollinear(e.top, pt, prev.top)) return;
+      else if (e.curX != prev.curX)
+      {
+        LogHelper.Snow("CheckJoinLeft 33 return");
+        return;
+      }
+      if (!InternalClipper.IsCollinear(e.top, pt, prev.top))
+      {
+        LogHelper.Snow("CheckJoinLeft 44 return");
+        return;
+      }
 
       if (e.outrec!.idx == prev.outrec!.idx)
+      {
+        LogHelper.Snow("CheckJoinLeft if AddLocalMaxPoly");
         AddLocalMaxPoly(prev, e, pt);
+      }
       else if (e.outrec.idx < prev.outrec.idx)
+      {
+        LogHelper.Snow("CheckJoinLeft elif JoinOutrecPaths");
         JoinOutrecPaths(e, prev);
+      }
       else
+      {
+        LogHelper.Snow("CheckJoinLeft else JoinOutrecPaths");
         JoinOutrecPaths(prev, e);
+      }
       prev.joinWith = JoinWith.Right;
       e.joinWith = JoinWith.Left;
     }
